@@ -1,0 +1,10 @@
+.menu__profile-icon {
+  border-radius: 50px;
+  height: 26px;
+  width: 26px;
+  background-color: #F4F4F4;
+  background-image: url('../../../images/profile-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10.5px 10.5px;
+}

@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 18px 70px;
+  background-color: #DDDEE3;
+  ;
+}
+
+@media (max-width: 920px) {
+  
+}
