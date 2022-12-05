@@ -1,7 +1,7 @@
 // import React from 'react';
-import logo from '../images/logo.svg';
-import profileIcon from '../images/profile-icon.svg';
-import Navigation from './Navigation';
+import logo from '../../images/logo.svg';
+import profileIcon from '../../images/profile-icon.svg';
+import Navigation from '../Navigation';
 
 function Header() {
   return (
