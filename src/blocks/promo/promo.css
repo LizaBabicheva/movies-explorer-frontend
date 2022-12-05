@@ -1,0 +1,7 @@
+.promo {
+  display: flex;
+  gap: 102px;
+  flex-direction: column;
+  background-color: #DDDEE3;
+  padding: 50px 70px 60px;
+}
