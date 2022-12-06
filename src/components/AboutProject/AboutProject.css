@@ -28,13 +28,11 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
-  text-align: left;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .project-info__timeline {
   display: grid;
-  /* grid-template-columns: 1fr 4fr; */
   grid-template-columns: minmax(100px, 1fr) minmax(184px, 4fr);
   grid-template-rows: 36px 17px;
   row-gap: 14px;
