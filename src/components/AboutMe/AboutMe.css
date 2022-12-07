@@ -7,7 +7,7 @@
 
 .about-me__profile {
   display: grid;
-  grid-template-columns: 600px 270px;
+  grid-template-columns: minmax(min-content, 600px) min-content;
   grid-template-rows: 58px 20px 88px 17px;
   /* column-gap: 270px; */
   /* row-gap: 18px 26px 100px; */
@@ -50,4 +50,10 @@
   border-radius: 10px;
   width: 255px;
   height: 307px;
+}
+
+@media (max-width: 860px) and (min-width: 681px) {
+  /* .about-me__profile {
+    column-gap: 47px;
+  } */
 }
