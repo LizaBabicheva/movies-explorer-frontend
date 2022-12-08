@@ -7,18 +7,17 @@
 
 .about-me__profile {
   display: grid;
-  grid-template-columns: minmax(min-content, 600px) min-content;
-  grid-template-rows: 58px 20px 88px 17px;
-  /* column-gap: 270px; */
-  /* row-gap: 18px 26px 100px; */
+  grid-template-columns: minmax(min-content, 600px) minmax(49px, 270px) min-content;
+  grid-template-rows: 76px minmax(46px, max-content) minmax(187px, max-content) 17px;
   margin: 0;
-  padding: 66px 0 100px;
+  padding: 66px 0 0;
   text-align: left;
 }
 
 .about-me__name {
-  /* grid-row: 1/2; */
+  grid-row: 1/2;
   margin: 0;
+  padding-bottom: 18px;
   font-size: 50px;
   font-weight: 400;
   line-height: 1.15;
@@ -26,7 +25,8 @@
 }
 
 .about-me__occupation {
-  /* grid-row: 3/4; */
+  grid-row: 2/3;
+  padding-bottom: 26px;
   font-weight: 500;
   font-size: 18px;
   line-height: 1.1;
@@ -34,26 +34,180 @@
 }
 
 .about-me__info {
-  /* grid-row: 5/6; */
+  grid-row: 3/4;
   margin: 0;
+  padding-bottom: 27px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 .about-me__link {
-  /* grid-row: 7/8; */
+  grid-row: 4/5;
   margin: 0;
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
 .about-me__photo {
-  grid-column: 2/3;
+  grid-column: 3/4;
   grid-row: 1/5;
   background-color: aqua;
   border-radius: 10px;
-  width: 255px;
-  height: 307px;
+  width: 270px;
+  height: 327px;
+}
+
+.about-me__portfolio {
+  display: flex;
+  flex-direction: column;
+  padding: 100px 0 125px;
+}
+
+.about-me__portfolio-title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.1;
+  color: #A0A0A0;
+  margin: 0 0 30px;
+}
+
+.about-me__portfolio-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ПОМЕНЯТЬ ОТСТУП НА 10px */
+.about-me__list-item {
+  padding: 20px 0 19px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.about-me__portfolio-link {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.65;
+  color: #000;
+  letter-spacing: -0.04em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-me__span {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 2;
+  letter-spacing: -0.04em;
+}
+
+.about-me__list-item:last-of-type {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 @media (max-width: 860px) and (min-width: 681px) {
-  /* .about-me__profile {
-    column-gap: 47px;
-  } */
+  .about-me {
+    padding: 90px 50px;
+  }
+
+  .about-me__profile {
+    grid-template-columns: minmax(364px, max-content) minmax(49px, 270px) min-content;
+    grid-template-rows: 56px minmax(38px, max-content) minmax(195px, max-content) 17px;
+  }
+
+  .about-me__name {
+    padding-bottom: 16px;
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .about-me__occupation {
+    padding-bottom: 20px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .about-me__info {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .about-me__photo {
+    width: 255px;
+    height: 307px;
+  }
+
+  .about-me__portfolio-link {
+    font-size: 28px;
+    line-height: 1.8;
+  }
+
+  .about-me__span {
+    font-size: 28px;
+    line-height: 2.15;
+  }
+}
+
+@media (max-width: 680px) {
+  .about-me {
+    padding: 70px 14px;
+  }
+/*  */
+  .about-me__profile {
+    padding-top: 60px;
+    grid-template-columns: minmax(292px, max-content);
+    grid-template-rows: 352px minmax(96px, max-content) minmax(36px, max-content) minmax(156px, max-content) 17px;
+  }
+
+  .about-me__name {
+    grid-row: 2/3;
+    padding: 40px 0 20px;
+    font-size: 30px;
+    line-height: 1.2px;
+  }
+
+  .about-me__occupation {
+    grid-row: 3/4;
+    font-size: 11px;
+    line-height: 1.45;
+    padding-bottom: 20px;
+  }
+
+  .about-me__info {
+    grid-row: 4/5;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .about-me__photo {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    width: 292px;
+    height: 352px;
+  }
+
+  .about-me__link {
+    grid-row: 5/6;
+  }
+
+/*  */
+  .about-me__portfolio-title {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .about-me__portfolio-link {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .about-me__span {
+    font-size: 18px;
+    line-height: 1.55;
+  }
 }
