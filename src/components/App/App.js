@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer';
 import Error from '../Error/Error';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 function App() {
   return (
@@ -31,8 +32,9 @@ function App() {
           <Login />
         </Route>
 
-        {/* <Route path='/signup'>
-      </Route> */}
+        <Route path='/signup'>
+          <Register />
+        </Route>
 
         <Route path="*">
           <Error />
