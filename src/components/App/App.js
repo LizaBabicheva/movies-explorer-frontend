@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Error from '../Error/Error';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (
@@ -21,8 +22,9 @@ function App() {
         {/* <Route path='/saved-movies'>
       </Route> */}
 
-        {/* <Route path='/profile'>
-      </Route> */}
+        <Route path='/profile'>
+          <Profile />
+        </Route>
 
         {/* <Route path='/signin'>
       </Route> */}
