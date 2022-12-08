@@ -1,14 +1,17 @@
 // import React from 'react';
 import logo from '../../images/logo.svg';
+import { Route, Link } from 'react-router-dom';
 import profileIcon from '../../images/profile-icon.svg';
 import Navigation from '../Navigation';
 
 function Header() {
   return (
     <header className='header'>
-      <a className='logo' href='#'>
+      <Link
+        className='logo'
+        to='/'>
         <img src={logo} alt='Лого'></img>
-      </a>
+      </Link>
 
       {/* <Navigation /> */}
 
