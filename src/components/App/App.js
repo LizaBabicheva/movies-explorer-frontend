@@ -8,6 +8,7 @@ import Error from '../Error/Error';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Movies from '../Movies/Movies';
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
           <Main />
         </Route>
 
-        {/* <Route path='/movies'>
-      </Route> */}
+        <Route path='/movies'>
+          <Movies />
+        </Route>
 
         {/* <Route path='/saved-movies'>
       </Route> */}
