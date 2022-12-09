@@ -19,7 +19,7 @@ function Register() {
           id='name'
           name='name'>
         </input>
-        <span className='register__error'>Ошибочка вышла</span>
+        <span className='register__error'></span>
 
         <label
           className='register__label'
@@ -30,7 +30,7 @@ function Register() {
           id='email'
           name='email'>
         </input>
-        <span className='register__error'>Ошибочка вышла</span>
+        <span className='register__error'></span>
 
         <label
           className='register__label'
@@ -41,7 +41,7 @@ function Register() {
           id='password'
           name='password'>
         </input>
-        <span className='register__error'></span>
+        <span className='register__error'>Что-то пошло не так...</span>
        
         <button className='register__submit'>Войти</button>
         </form>
