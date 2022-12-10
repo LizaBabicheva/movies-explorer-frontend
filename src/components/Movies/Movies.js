@@ -19,6 +19,7 @@ function Movies() {
   return (
     <section className="movies">
       <SearchForm />
+
       <ul className='movies-list'>
 
         <MoviesCard

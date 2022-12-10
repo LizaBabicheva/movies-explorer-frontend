@@ -11,16 +11,19 @@ import Register from '../Register/Register';
 import Movies from '../Movies/Movies';
 
 function App() {
+
   return (
     <div className="root">
       <Header />
+
       <Switch>
         <Route exact path='/'>
           <Main />
         </Route>
 
         <Route path='/movies'>
-          <Movies />
+          <Movies
+          />
         </Route>
 
         {/* <Route path='/saved-movies'>
