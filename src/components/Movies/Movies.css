@@ -5,6 +5,17 @@
   padding: 0 70px;
 }
 
+.movies-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(339px, 364px));
+  gap: 37px 24px;
+  max-width: 100%;
+  margin: 0;
+  padding: 50px 0 0;
+  justify-content: center;
+}
+
 .movies__more-button {
   background-color: #F4F4F4;
   border-radius: 6px;
@@ -14,6 +25,12 @@
   line-height: 1.25;
   padding: 11px 0 9px;
   margin: 50px 0 0;
+}
+
+@media (max-width: 900px) {
+  .movies-list {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 339px));
+  }
 }
 
 @media (max-width: 860px) and (min-width: 681px) {
