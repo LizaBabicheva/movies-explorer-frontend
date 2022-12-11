@@ -29,42 +29,13 @@
   color: #000;
 }
 
-.header__menu-button {
+.header__menu-link_type_button {
   background-color: #3456F3;
   border: none;
   border-radius: 3px;
   margin: 0;
   color: #fff;
   padding: 8px 20px;
-}
-
-.header__profile-button {
-  display: flex;
-  background-color: transparent;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
-  border-radius: 40px;
-  width: 100px;
-  height: 32px;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 0.9;
-  text-align: left;
-  border: none;
-  padding-right: 3px;
-  padding-left: 11px;
-}
-
-.header__profile-icon {
-  border-radius: 50px;
-  height: 26px;
-  width: 26px;
-  background-color: #F4F4F4;
-  background-image: url('../../images/profile-icon.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 10.5px 10.5px;
 }
 
 @media (max-width: 920px) {
