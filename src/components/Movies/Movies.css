@@ -5,7 +5,7 @@
   padding: 0 70px;
 }
 
-.movies-list {
+/* .movies-list {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(339px, 364px));
@@ -14,7 +14,7 @@
   margin: 0;
   padding: 50px 0 0;
   justify-content: center;
-}
+} */
 
 .movies__more-button {
   background-color: #F4F4F4;
@@ -27,11 +27,11 @@
   margin: 50px 0 0;
 }
 
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .movies-list {
     grid-template-columns: repeat(auto-fit, minmax(300px, 339px));
   }
-}
+} */
 
 @media (max-width: 860px) and (min-width: 681px) {
   .movies {

@@ -1,26 +1,28 @@
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
-import MoviesCard from '../MoviesCard/MoviesCard';
+// import MoviesCard from '../MoviesCard/MoviesCard';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-import aboutDesign from '../../images/pic_1.jpg';
-import hundredYears from '../../images/pic_2.jpg';
-import benksy from '../../images/pic_3.jpg';
-import basquiat from '../../images/pic_4.jpg';
-import running from '../../images/pic_5.jpg';
-import bookSellers from '../../images/pic_6.jpg';
-import aboutGermany from '../../images/pic_7.jpg';
-import gimmeDanger from '../../images/pic_8.jpg';
-import smallGirl from '../../images/pic_9.jpg';
-import beforeJump from '../../images/pic_10.jpg';
-import pjHarvey from '../../images/pic_11.jpg';
-import soundArt from '../../images/pic_12.jpg';
+// import aboutDesign from '../../images/pic_1.jpg';
+// import hundredYears from '../../images/pic_2.jpg';
+// import benksy from '../../images/pic_3.jpg';
+// import basquiat from '../../images/pic_4.jpg';
+// import running from '../../images/pic_5.jpg';
+// import bookSellers from '../../images/pic_6.jpg';
+// import aboutGermany from '../../images/pic_7.jpg';
+// import gimmeDanger from '../../images/pic_8.jpg';
+// import smallGirl from '../../images/pic_9.jpg';
+// import beforeJump from '../../images/pic_10.jpg';
+// import pjHarvey from '../../images/pic_11.jpg';
+// import soundArt from '../../images/pic_12.jpg';
 
 function Movies() {
   return (
     <section className="movies">
       <SearchForm />
+      <MoviesCardList />
 
-      <ul className='movies-list'>
+      {/* <ul className='movies-list'>
 
         <MoviesCard
           title='33 слова о дизайне'
@@ -71,7 +73,7 @@ function Movies() {
           image={soundArt}
           duration='1ч 7м' />
 
-      </ul>
+      </ul> */}
       <button className='movies__more-button' type='button' aria-label='Загрузить еще'>Ещё</button>
     </section>
   )

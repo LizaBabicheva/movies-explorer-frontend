@@ -1,0 +1,16 @@
+.movies-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(339px, 364px));
+    gap: 37px 24px;
+    max-width: 100%;
+    margin: 0;
+    padding: 50px 0 0;
+    justify-content: center;
+  }
+
+  @media (max-width: 900px) {
+    .movies-list {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 339px));
+    }
+  }

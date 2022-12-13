@@ -9,6 +9,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../Movies/Movies';
 
 function App() {
 
@@ -26,8 +27,9 @@ function App() {
           />
         </Route>
 
-        {/* <Route path='/saved-movies'>
-      </Route> */}
+        <Route path='/saved-movies'>
+          <SavedMovies />
+        </Route>
 
         <Route path='/profile'>
           <Profile />
@@ -41,7 +43,7 @@ function App() {
           <Register />
         </Route>
 
-        <Route path="*">
+        <Route path='*'>
           <Error />
         </Route>
 
