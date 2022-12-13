@@ -32,7 +32,9 @@ function App() {
         </Route>
 
         <Route path='/profile'>
-          <Profile />
+          <Profile
+            name='Виталий'
+            email='pochta@yandex.ru' />
         </Route>
 
         <Route path='/signin'>
