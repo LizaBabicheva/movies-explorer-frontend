@@ -2,7 +2,7 @@
 import logo from '../../images/logo.svg';
 import { Route, Link } from 'react-router-dom';
 import './Header.css';
-import profileIcon from '../../images/profile-icon.svg';
+// import profileIcon from '../../images/profile-icon.svg';
 import Navigation from '../Navigation/Navigation';
 
 function Header() {

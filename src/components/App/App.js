@@ -12,10 +12,15 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../Movies/Movies';
 
 function App() {
+  const headerPathArray = ['/', '/movies', '/saved-movies', '/profile'];
+  const footerPathArray = ['/', '/movies', '/saved-movies'];
 
   return (
     <div className="root">
-      <Header />
+
+      <Route exact path={headerPathArray}>
+        <Header />
+      </Route>
 
       <Switch>
         <Route exact path='/'>
@@ -50,7 +55,10 @@ function App() {
         </Route>
 
       </Switch>
-      <Footer />
+
+      <Route exact path={footerPathArray}>
+        <Footer />
+      </Route>
     </div>
   );
 }

@@ -12,7 +12,7 @@ function Register() {
       <form className='register__form'>
       <label
           className='register__label'
-          for='name'>Имя</label>
+          htmlFor='name'>Имя</label>
         <input 
           className='register__input'
           type="text"
@@ -23,7 +23,7 @@ function Register() {
 
         <label
           className='register__label'
-          for='email'>E-mail</label>
+          htmlFor='email'>E-mail</label>
         <input 
           className='register__input'
           type="email"
@@ -34,7 +34,7 @@ function Register() {
 
         <label
           className='register__label'
-          for='password'>Пароль</label>
+          htmlFor='password'>Пароль</label>
         <input
           className='register__input'
           type='password'
