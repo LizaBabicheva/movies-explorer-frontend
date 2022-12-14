@@ -4,6 +4,9 @@
   max-width: 100%;
   margin: 0 auto;
   padding: 18px 70px;
+}
+
+.header_type_main {
   background-color: #DDDEE3;
 }
 
@@ -38,6 +41,29 @@
   padding: 8px 20px;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 860px) and (min-width: 681px) {
+  .header {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
 
+@media (max-width: 680px) {
+  .header {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .header__menu-link {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .header__menu {
+    gap: 14px;
+  }
+
+  .header__menu-link_type_button {
+    padding: 5px 12px;
+  }
 }

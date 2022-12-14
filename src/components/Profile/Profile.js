@@ -1,7 +1,32 @@
+import { useState, useEffect } from 'react';
 import './Profile.css';
-// import { Link } from 'react-router-dom';
 
-function Profile({ name, email }) {
+function Profile(props) {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    setName(props.name);
+    setEmail(props.email)
+  }, []);
+
+  function handleNameChange(e) {
+    setName(e.target.value);
+  }
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   onUpdateUser({
+  //     name,
+  //     email: email,
+  //   });
+  // }
+
   return (
     <section className='profile'>
       <div className='profile__info'>
@@ -12,7 +37,9 @@ function Profile({ name, email }) {
               className='profile__input'
               type='text'
               id='profile-name'
-              placeholder={name}>
+              placeholder='Введите имя'
+              value={name}
+              onChange={handleNameChange}>
             </input>
           </label>
           <span className='profile__input-error'></span>
@@ -21,7 +48,9 @@ function Profile({ name, email }) {
               className='profile__input'
               type='email'
               id='profile-email'
-              placeholder={email}>
+              placeholder='Введите email'
+              value={email}
+              onChange={handleEmailChange}>
             </input>
           </label>
           <span className='profile__input-error'></span>
