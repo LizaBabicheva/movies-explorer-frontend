@@ -10,6 +10,7 @@
 .search__field {
   display: flex;
   gap: 10px;
+  cursor: pointer;
 }
 
 .search__input {
@@ -45,6 +46,14 @@
   padding: 13px 0;
   margin: 0;
   flex: 0 0 auto;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.search__button:hover {
+  opacity: 0.7;
+  transition: opacity 0.5s ease-in-out;
 }
 
 @media (max-width: 680px) {

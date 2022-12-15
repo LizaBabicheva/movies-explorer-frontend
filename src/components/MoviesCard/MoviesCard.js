@@ -12,13 +12,6 @@ function MoviesCard({ title, image, duration }) {
           className='movie-card__like-button'
           aria-label='Нравится'>
         </button>
-
-        {/* <button
-          type='button'
-          className='movie-card__delete-button'
-          aria-label='Нравится'>
-        </button> */}
-
         <p className='movie-card__duration'>{duration}</p>
       </div>
     </li>

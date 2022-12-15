@@ -6,6 +6,8 @@ import Navigation from '../Navigation/Navigation';
 function Header() {
   const location = useLocation();
 
+  const navPathArray = ['/movies', '/saved-movies', '/profile'];
+
   return (
     <header className={`header ${location.pathname === '/' && 'header_type_main'}`}>
 
@@ -20,7 +22,7 @@ function Header() {
         </nav>
       </Route>
 
-      <Route path='/movies'>
+      <Route path={navPathArray}>
         <Navigation />
       </Route>
 
