@@ -14,7 +14,7 @@ function Navigation() {
 
   return (
     <nav className='navigation'>
-      <div className={isMobileMenu ? 'navigation__wrap navigation__wrap_type_mobile' : 'navigation__wrap'}>
+      <div className={`navigation__wrap ${isMobileMenu && 'navigation__wrap_type_mobile'}`}>
         <ul className='navigation__list'>
           {isMobile &&
             <li><Link className='navigation__link navigation__link_active' to='/'>Главная</Link></li>}
