@@ -1,7 +1,6 @@
 import { Route, Link, useLocation } from 'react-router-dom';
-import logo from '../../images/logo.svg';
 import './Header.css';
-// import profileIcon from '../../images/profile-icon.svg';
+import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
 
 function Header() {
@@ -10,7 +9,7 @@ function Header() {
   return (
     <header className={`header ${location.pathname === '/' && 'header_type_main'}`}>
 
-      <Link className='header__logo' to='/'>
+      <Link className='header__logo header__menu-link' to='/'>
         <img src={logo} alt='Лого'></img>
       </Link>
 

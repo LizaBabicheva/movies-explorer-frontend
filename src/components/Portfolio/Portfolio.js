@@ -7,19 +7,25 @@ function Portfolio() {
       <ul className='portfolio__links'>
         <li className='portfolio__list-item'>
           <a className='portfolio__link'
-            href='https://github.com/LizaBabicheva'>Статичный сайт
+            href='https://github.com/LizaBabicheva'
+            target='_blank'
+            rel='noreferrer'>Статичный сайт
             <span className='portfolio__link-span'>&#8599;</span>
           </a>
         </li>
         <li className='portfolio__list-item'>
           <a className='portfolio__link'
-            href='https://github.com/LizaBabicheva'>Адаптивный сайт
+            href='https://lizababicheva.github.io/russian-travel/index.html'
+            target='_blank'
+            rel='noreferrer'>Адаптивный сайт
             <span className='portfolio__link-span'>&#8599;</span>
           </a>
         </li>
         <li className='portfolio__list-item'>
           <a className='portfolio__link'
-            href='https://github.com/LizaBabicheva'>Одностраничное приложение
+            href='https://mesto.lizababicheva.nomoredomains.icu/'
+            target='_blank'
+            rel='noreferrer'>Одностраничное приложение
             <span className='portfolio__link-span'>&#8599;</span>
           </a>
         </li>
