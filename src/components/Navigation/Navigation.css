@@ -100,11 +100,6 @@
 }
 
 @media screen and (max-width: 860px) {
-  .navigation__button {
-    visibility: visible;
-    opacity: 1;
-  }
-
   .navigation__wrap {
     box-sizing: border-box;
     height: 100vh;
@@ -119,6 +114,10 @@
     z-index: 2;
     transition: 1s;
     height: 100%;
+  }
+
+  .navigation__wrap_type_mobile {
+    right: 0;
   }
 
   .navigation__list {
@@ -159,8 +158,9 @@
     border-bottom: none;
   }
 
-  .navigation__wrap_type_mobile {
-    right: 0;
+  .navigation__button {
+    visibility: visible;
+    opacity: 1;
   }
 
   .navigation__button_type_close {
