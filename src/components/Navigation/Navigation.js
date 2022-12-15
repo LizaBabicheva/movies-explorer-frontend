@@ -1,27 +1,20 @@
 import './Navigation.css';
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 function Navigation() {
 
   const isMobile = useMediaQuery({ query: `(max-width: 860px)` });
+  const [isMobileMenu, setIsMobileMenu] = useState(false);
 
-  const navRef = useRef();
-  function showNavBar() {
-    navRef.current.classList.toggle('navigation__wrap_type_mobile');
+  function handleMenuClick() {
+    setIsMobileMenu(!isMobileMenu);
   }
-
-  // const [isClicked, setIsClicked] = useState(false);
-
-  // function handleMenuClick() {
-  //   setIsClicked(true);
-  // }
 
   return (
     <nav className='navigation'>
-      <div className='navigation__wrap'
-        ref={navRef}>
+      <div className={isMobileMenu ? 'navigation__wrap navigation__wrap_type_mobile' : 'navigation__wrap'}>
         <ul className='navigation__list'>
           {isMobile &&
             <li><Link className='navigation__link navigation__link_active' to='/'>Главная</Link></li>}
@@ -32,14 +25,14 @@ function Navigation() {
         {isMobile &&
           <button
             className='navigation__button navigation__button_type_close'
-            onClick={showNavBar}
+            onClick={handleMenuClick}
             type='button'></button>
         }
       </div>
       {isMobile &&
         <button
           className='navigation__button navigation__button_type_menu'
-          onClick={showNavBar}
+          onClick={handleMenuClick}
           type='button'></button>}
     </nav>
   )
