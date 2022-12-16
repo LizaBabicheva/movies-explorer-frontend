@@ -20,13 +20,23 @@
   margin: 0 auto 184px;
 }
 
-.error__link {
+.error__button {
+  border: none;
+  background-color: transparent;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.2;
   color: #3456F3;
   margin: 0 auto;
-  text-decoration: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.error__button:hover {
+  opacity: 0.7;
+  transition: opacity 0.5s ease-in-out;
 }
 
 @media (max-width: 860px) and (min-width: 681px) {
@@ -52,7 +62,7 @@
     margin-bottom: 284px;
   }
 
-  .error__link {
+  .error__button {
     font-size: 12px;
     line-height: 1.25;
   }

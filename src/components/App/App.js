@@ -54,6 +54,7 @@ function App() {
         <Route path='/404'>
           <Error />
         </Route>
+        
         <Redirect from='*' to='/404' />
 
       </Switch>
