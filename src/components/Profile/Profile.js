@@ -36,10 +36,13 @@ function Profile(props) {
             <input
               className='profile__input'
               type='text'
+              minLength='2'
+              maxLength='30'
               id='profile-name'
               placeholder='Введите имя'
               value={name}
-              onChange={handleNameChange}>
+              onChange={handleNameChange}
+              required>
             </input>
           </label>
           <span className='profile__input-error'></span>
@@ -50,15 +53,20 @@ function Profile(props) {
               id='profile-email'
               placeholder='Введите email'
               value={email}
-              onChange={handleEmailChange}>
+              onChange={handleEmailChange}
+              required>
             </input>
           </label>
           <span className='profile__input-error'></span>
 
           <div className='profile__button-wrap'>
-            <button className='profile__button profile__button_type_edit'>Редактировать</button>
             <button
-              className='profile__button profile__button_type_signout'>
+              className='profile__button profile__button_type_edit'
+              type='submit'>
+              Редактировать</button>
+            <button
+              className='profile__button profile__button_type_signout'
+              type='submit'>
               Выйти из аккаунта
             </button>
           </div>
