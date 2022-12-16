@@ -1,10 +1,13 @@
 import './SavedMovies.css';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies() {
+function SavedMovies(props) {
+
+  const SavedMovies = props.movies.filter(i => i.saved);
   return (
     <div>
-      <MoviesCardList />
+      <MoviesCardList
+        movies={ SavedMovies} />
     </div>
   )
 }

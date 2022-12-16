@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import './Profile.css';
 
-function Profile(props) {
+import { userContext } from '../../contexts/CurrentUserContext';
+
+function Profile() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    setName(props.name);
-    setEmail(props.email)
+    setName(userContext.name);
+    setEmail(userContext.email)
   }, []);
 
   function handleNameChange(e) {
@@ -19,18 +21,10 @@ function Profile(props) {
     setEmail(e.target.value);
   }
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   onUpdateUser({
-  //     name,
-  //     email: email,
-  //   });
-  // }
-
   return (
     <section className='profile'>
       <div className='profile__info'>
-        <h2 className='profile__greeting'>Привет,&nbsp;{name}!</h2>
+        <h2 className='profile__greeting'>Привет,&nbsp;{userContext.name}!</h2>
         <form className='profile__info-form'>
           <label className='profile__input-label' htmlFor='profile-name'>Имя
             <input

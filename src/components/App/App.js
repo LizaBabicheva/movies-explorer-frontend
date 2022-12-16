@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -10,11 +10,33 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../Movies/Movies';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import Api from '../../utils/api';
 
 function App() {
   const headerPathArray = ['/', '/movies', '/saved-movies', '/profile'];
   const footerPathArray = ['/', '/movies', '/saved-movies'];
+
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    new Api().getInitialMovies()
+      .then((initialMovies) => {
+        setMovies(initialMovies)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [])
+
+  // useEffect(() => {
+  //   new Api().getInitialMovies()
+  //     .then((initialMovies) => {
+  //       setMovies(initialMovies)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }, [])
 
   return (
     <div className="root">
@@ -30,6 +52,7 @@ function App() {
 
         <Route path='/movies'>
           <Movies
+            movies={movies}
           />
         </Route>
 
@@ -38,9 +61,7 @@ function App() {
         </Route>
 
         <Route path='/profile'>
-          <Profile
-            name='Виталий'
-            email='pochta@yandex.ru' />
+          <Profile />
         </Route>
 
         <Route path='/signin'>
@@ -54,7 +75,7 @@ function App() {
         <Route path='/404'>
           <Error />
         </Route>
-        
+
         <Redirect from='*' to='/404' />
 
       </Switch>

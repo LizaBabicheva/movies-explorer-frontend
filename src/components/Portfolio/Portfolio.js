@@ -7,7 +7,7 @@ function Portfolio() {
       <ul className='portfolio__links'>
         <li className='portfolio__list-item'>
           <a className='portfolio__link'
-            href='https://github.com/LizaBabicheva'
+            href='https://lizababicheva.github.io/how-to-learn/index.html'
             target='_blank'
             rel='noreferrer'>Статичный сайт
             <span className='portfolio__link-span'>&#8599;</span>
