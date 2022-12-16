@@ -74,7 +74,6 @@
 .navigation__button {
   border: none;
   background-color: transparent;
-  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   visibility: hidden;
@@ -102,8 +101,12 @@
   }
 
   .navigation__button_type_close {
-    top: 22.5px;
-    right: 22.5px;
+    top: 26.5px;
+    right: 26.5px;
+  }
+
+  .navigation__list {
+    gap: 28px;
   }
 }
 
@@ -132,7 +135,6 @@
     height: 100%;
     flex-direction: column;
     list-style: none;
-    gap: 22px;
     padding: 0;
     margin: 0 auto;
     align-items: center;
@@ -145,6 +147,7 @@
     line-height: 1.2;
     border-bottom: 1px solid rgba(0, 0, 0, 0);
     transition: border-bottom 0.5s ease-in-out;
+    padding-bottom: 7px;
   }
 
   .navigation__link_active {
@@ -188,8 +191,12 @@
     padding: 144px 0 46px;
   }
 
+  .navigation__list {
+    gap: 24px;
+  }
+
   .navigation__button_type_close {
-    top: 13.5px;
-    right: 13.5px;
+    top: 17px;
+    right: 17px;
   }
 }

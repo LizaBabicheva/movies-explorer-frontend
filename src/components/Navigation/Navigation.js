@@ -2,6 +2,7 @@ import './Navigation.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Navigation() {
 
@@ -17,9 +18,10 @@ function Navigation() {
       <div className={`navigation__wrap ${isMobileMenu && 'navigation__wrap_type_mobile'}`}>
         <ul className='navigation__list'>
           {isMobile &&
-            <li><Link className='navigation__link navigation__link_active' to='/'>Главная</Link></li>}
-          <li><Link className='navigation__link' to='/movies'>Фильмы</Link></li>
-          <li><Link className='navigation__link' to='/saved-movies'>Сохранённые фильмы</Link></li>
+            <li><NavLink exact to='/' className='navigation__link' activeClassName='navigation__link_active'>Главная</NavLink></li>
+          }
+          <li><NavLink to='/movies' className='navigation__link' activeClassName='navigation__link_active'>Фильмы</NavLink></li>
+          <li><NavLink to='/saved-movies' className='navigation__link' activeClassName='navigation__link_active'>Сохранённые фильмы</NavLink></li>
         </ul>
         <Link className='navigation__link navigation__link_type_profile-button' to='/profile'>Аккаунт<div className='navigation__profile-icon'></div></Link>
         {isMobile &&
