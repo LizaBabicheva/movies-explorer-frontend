@@ -10,6 +10,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../Movies/Movies';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
   const headerPathArray = ['/', '/movies', '/saved-movies', '/profile'];
@@ -50,9 +51,10 @@ function App() {
           <Register />
         </Route>
 
-        <Route path='*'>
+        <Route path='/404'>
           <Error />
         </Route>
+        <Redirect from='*' to='/404' />
 
       </Switch>
 
