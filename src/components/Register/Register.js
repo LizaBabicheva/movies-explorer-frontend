@@ -49,7 +49,8 @@ function Register() {
 
         <button
           className='register__submit'
-          type='submit'>Зарегистрироваться
+          type='submit'>
+          Зарегистрироваться
         </button>
       </form>
 
