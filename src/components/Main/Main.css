@@ -1,0 +1,23 @@
+.main {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.main__section-title {
+  max-width: 100%;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.2;
+  text-align: left;
+  margin: 0;
+  padding-bottom: 23px;
+  border-bottom: 1px solid;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 680px) {
+  .main__section-title {
+    font-size: 18px;
+    padding-bottom: 28px;
+  }
+}
