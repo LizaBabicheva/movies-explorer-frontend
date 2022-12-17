@@ -5,7 +5,8 @@ function SavedMovies(props) {
 
   return (
     <div>
-      <MoviesCardList />
+      <MoviesCardList
+      />
     </div>
   )
 }

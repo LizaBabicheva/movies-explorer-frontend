@@ -10,7 +10,7 @@
   height: 203px;
   width: 100%;
   object-position: center;
-  display: block;
+  display: flex;
 }
 
 .movie-card__description {

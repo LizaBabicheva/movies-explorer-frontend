@@ -24,19 +24,22 @@ const faker = [
     _id: '4',
     title: 'Баския: Взрыв реальности',
     image: 'https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/4d371f69-5f9f-40c1-a480-b9f7f802ea21/x504',
-    duration: '1ч 21м'
+    duration: '1ч 21м',
+    saved: true
   },
   {
     _id: '5',
     title: 'Бег это свобода',
     image: 'https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/c8dff238-ea60-4b38-abb2-1a4479fecc63/3840x',
-    duration: '1ч 44м'
+    duration: '1ч 44м',
+    saved: true
   },
   {
     _id: '6',
     title: 'Книготорговцы',
     image: 'https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/6cb28cf7-dab8-42a7-8e3c-8777d57d30b4/x504',
-    duration: '1ч 37м'
+    duration: '1ч 37м',
+    saved: true
   },
   {
     _id: '7',

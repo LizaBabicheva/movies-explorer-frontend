@@ -8,8 +8,8 @@ function Movies(props) {
       <SearchForm />
       <MoviesCardList
         moviesList={props.moviesList}
-        />
-      <button className='movies__more-button' type='button' aria-label='Загрузить еще'>Ещё</button>
+        shownListSize={props.shownListSize} />
+      <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>
     </section>
   )
 }
