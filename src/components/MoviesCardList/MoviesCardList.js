@@ -5,10 +5,10 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 function MoviesCardList(props) {
   return (
     <ul className='movies-list'>
-      {props.movies.map((movieItem) => (
+      {props.moviesList.map((movie) => (
         <MoviesCard
-          movie={movieItem}
-          key={movieItem._id}
+          movie={movie}
+          key={movie._id}
         // onMovieLike={onMovieLike}
         // onMovieDelete={onMovieDelete}
         />

@@ -7,7 +7,8 @@ function Movies(props) {
     <section className="movies">
       <SearchForm />
       <MoviesCardList
-        movies={props.movies} />
+        moviesList={props.moviesList}
+        />
       <button className='movies__more-button' type='button' aria-label='Загрузить еще'>Ещё</button>
     </section>
   )

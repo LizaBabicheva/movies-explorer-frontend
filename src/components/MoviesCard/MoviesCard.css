@@ -7,8 +7,7 @@
 
 .movie-card__img {
   object-fit: cover;
-  max-height: 203px;
-  min-height: 168px;
+  height: 203px;
   width: 100%;
   object-position: center;
   display: block;
@@ -84,12 +83,20 @@
 }
 
 @media (max-width: 860px) and (min-width: 681px) {
+  .movie-card__img {
+    height: 190px;
+  }
+
   .movie-card__description {
     gap: 15px 29px;
   }
 }
 
 @media (max-width: 680px) {
+  .movie-card__img {
+    height: 168px;
+  }
+
   .movie-card__description {
     gap: 14px;
   }
