@@ -79,7 +79,9 @@ function App() {
 
         <Route path='/saved-movies'>
           <SavedMovies
-            moviesList={savedMoviesList} />
+            moviesList={savedMoviesList}
+            shownListSize={shownListSize}
+            onLoadMore={onLoadMore} />
         </Route>
 
         <Route path='/profile'>
