@@ -163,6 +163,7 @@
     font-size: 13px;
     line-height: 0.9;
     border-bottom: none;
+    padding-bottom: 0;
   }
 
   .navigation__link_type_profile-button:hover {
