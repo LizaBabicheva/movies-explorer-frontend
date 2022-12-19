@@ -43,7 +43,7 @@
 }
 
 .register__input:focus {
-  outline: none;
+  outline: 1px solid #3456F3;
 }
 
 .register__input_type_error {
