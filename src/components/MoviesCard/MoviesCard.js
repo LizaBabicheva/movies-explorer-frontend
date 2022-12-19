@@ -17,7 +17,7 @@ function MoviesCard(props) {
         <Route path='/movies'>
           <button
             type='button'
-            className={`movie-card__like-button ${isLiked && 'movie-card__like-button_active'}`}
+            className={`movie-card__like-button ${isLiked ? 'movie-card__like-button_active' : ''}`}
             aria-label='Сохранить'
             onClick={handleLikeClick}>
           </button>

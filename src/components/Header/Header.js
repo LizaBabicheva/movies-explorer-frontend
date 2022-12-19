@@ -9,7 +9,7 @@ function Header() {
   const navPathArray = ['/movies', '/saved-movies', '/profile'];
 
   return (
-    <header className={`header ${location.pathname === '/' && 'header_type_main'}`}>
+    <header className={`header ${location.pathname === '/' ? 'header_type_main' : ''}`}>
 
       <Link className='header__logo header__menu-link' to='/'>
         <img src={logo} alt='Лого'></img>
