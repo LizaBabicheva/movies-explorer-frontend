@@ -61,6 +61,10 @@
   outline: none;
 }
 
+.profile__input-label:focus-within {
+  border-bottom: 1px solid #3456F3;
+}
+
 .profile__input_type_error {
   color: #EE3465;
 }
