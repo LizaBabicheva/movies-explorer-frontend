@@ -5,6 +5,7 @@
   border-radius: 6px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .movie-card__img {
