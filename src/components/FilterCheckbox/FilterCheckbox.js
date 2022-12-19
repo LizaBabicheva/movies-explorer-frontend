@@ -2,11 +2,11 @@ import './FilterCheckbox.css';
 
 function FilterCheckbox() {
   return (
-    <label className="filter">
-      <input className="filter__switch" type="checkbox"></input>
-      <div className="filter__switch-tumbler"></div>
-      <span className="filter__title">Короткометражки</span>
-    </label>
+    <div className='filter'>
+      <input type="checkbox" id="switch" className='filter__input'></input>
+      <label for="switch" className='filter__label'></label>
+      <p className="filter__title">Короткометражки</p>
+    </div>
   )
 }
 
