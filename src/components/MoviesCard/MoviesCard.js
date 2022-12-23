@@ -29,8 +29,14 @@ function MoviesCard(props) {
       // thumbnail: props.thumbnail,
       thumbnail: props.movie.image.formats.thumbnail.url,
       movieId: props.movie.id,
-    });
+    })
   }
+
+    function handleDeleteClick() {
+      debugger;
+      props.onDelete(props.movie);
+    }
+
 
 
   return (
@@ -51,7 +57,7 @@ function MoviesCard(props) {
             type='button'
             className='movie-card__delete-button'
             aria-label='Удалить'
-          // onClick={}
+            onClick={handleDeleteClick}
           >
           </button>
         </Route>

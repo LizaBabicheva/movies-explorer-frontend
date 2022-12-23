@@ -17,7 +17,8 @@ function MoviesCardList(props) {
             duration={movie.duration}
             // thumbnail= {imageUrl + movie.image.formats.thumbnail.url}
             thumbnail= {movie.thumbnail}
-            key={movie.id} />
+            key={movie.id} 
+            onDelete={props.onDelete}/>
           : ''
       ))}
     </ul>

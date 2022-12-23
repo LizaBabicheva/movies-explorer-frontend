@@ -26,6 +26,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [isSignup, setIsSignup] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [movieDelete, setMovieDelete] = useState({});
   // const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
 
@@ -206,6 +207,18 @@ function App() {
   }
 
 
+  function handleMovieDelete(movie) {
+    debugger;
+    mainApi.deleteMovieApi(movie._id)
+      .then(() => {
+        setSavedMoviesList((movies) => movies.filter(item => item._id !== movie._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      // setMovieDelete(movie);
+  }
+
   // const isLiked = card.likes.some(i => i === currentUser._id);
   // api.changeLikeApi(card._id, !isLiked)
   //   .then((newCard) => {
@@ -299,7 +312,8 @@ function App() {
             <SavedMovies
               moviesList={savedMoviesList}
               shownListSize={shownListSize}
-              onLoadMore={onLoadMore} />
+              onLoadMore={onLoadMore}
+              onDelete={handleMovieDelete} />
           </Route>
 
           <Route path='/profile'>

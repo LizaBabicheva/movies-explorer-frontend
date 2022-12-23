@@ -6,6 +6,7 @@ function SavedMovies(props) {
   return (
     <div>
       <MoviesCardList
+      onDelete={props.onDelete}
       />
     </div>
   )
