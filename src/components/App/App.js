@@ -15,6 +15,7 @@ import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const headerPathArray = ['/', '/movies', '/saved-movies', '/profile'];
@@ -26,8 +27,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [isSignup, setIsSignup] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [movieDelete, setMovieDelete] = useState({});
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
 
 
@@ -67,7 +67,6 @@ function App() {
 
   useEffect(() => {
     loginCheck();
-    // setIsLoading(false);
   }, [])
 
   useEffect((userData) => {
@@ -76,6 +75,7 @@ function App() {
         .then((userInfo) => {
           // setCurrentUser(userInfo.data);
           setCurrentUser(userInfo);
+          setIsLoading(false);
         })
         .catch((err) => {
           console.log(err);
@@ -216,7 +216,6 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-      // setMovieDelete(movie);
   }
 
   // const isLiked = card.likes.some(i => i === currentUser._id);
@@ -278,18 +277,20 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
+        {isLoading ?
+          <Preloader /> :
+          <>
+            <Route exact path={headerPathArray}>
+              <Header
+                loggedIn={loggedIn} />
+            </Route>
 
-        <Route exact path={headerPathArray}>
-          <Header
-            loggedIn={loggedIn} />
-        </Route>
+            <Switch>
+              <Route exact path='/'>
+                <Main />
+              </Route>
 
-        <Switch>
-          <Route exact path='/'>
-            <Main />
-          </Route>
-
-          {/* <Route path='/movies'>
+              {/* <Route path='/movies'>
             <Movies
               moviesList={moviesList}
               shownListSize={shownListSize}
@@ -297,58 +298,58 @@ function App() {
             />
           </Route> */}
 
-          <ProtectedRoute
-            component={Movies}
-            path='/movies'
-            moviesList={moviesList}
-            shownListSize={shownListSize}
-            onLoadMore={onLoadMore}
-            loggedIn={loggedIn}
-            onMovieLike={handleMovieLike}>
-          </ProtectedRoute>
+              <ProtectedRoute
+                component={Movies}
+                path='/movies'
+                moviesList={moviesList}
+                shownListSize={shownListSize}
+                onLoadMore={onLoadMore}
+                loggedIn={loggedIn}
+                onMovieLike={handleMovieLike}>
+              </ProtectedRoute>
 
+              <Route path='/saved-movies'>
+                <SavedMovies
+                  moviesList={savedMoviesList}
+                  shownListSize={shownListSize}
+                  onLoadMore={onLoadMore}
+                  onDelete={handleMovieDelete} />
+              </Route>
 
-          <Route path='/saved-movies'>
-            <SavedMovies
-              moviesList={savedMoviesList}
-              shownListSize={shownListSize}
-              onLoadMore={onLoadMore}
-              onDelete={handleMovieDelete} />
-          </Route>
+              <Route path='/profile'>
+                <Profile
+                  currentUser={currentUser}
+                  onSignout={handleSignOut}
+                  onProfileChange={handleProfileChange}
 
-          <Route path='/profile'>
-            <Profile
-              currentUser={currentUser}
-              onSignout={handleSignOut}
-              onProfileChange={handleProfileChange}
+                />
+              </Route>
 
-            />
-          </Route>
+              <Route path='/signin'>
+                <Login
+                  onLogin={handleLogin}
+                />
+              </Route>
 
-          <Route path='/signin'>
-            <Login
-              onLogin={handleLogin}
-            />
-          </Route>
+              <Route path='/signup'>
+                <Register
+                  onSignup={handleSignup}
+                />
+              </Route>
 
-          <Route path='/signup'>
-            <Register
-              onSignup={handleSignup}
-            />
-          </Route>
+              <Route path='/404'>
+                <Error />
+              </Route>
 
-          <Route path='/404'>
-            <Error />
-          </Route>
+              <Redirect from='*' to='/404' />
 
-          <Redirect from='*' to='/404' />
+            </Switch>
 
-        </Switch>
-
-        <Route exact path={footerPathArray}>
-          <Footer />
-        </Route>
-
+            <Route exact path={footerPathArray}>
+              <Footer />
+            </Route>
+          </>
+        }
       </div>
     </CurrentUserContext.Provider>
   );
