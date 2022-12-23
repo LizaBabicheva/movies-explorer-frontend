@@ -14,7 +14,8 @@ function Movies(props) {
         onMovieLike={props.onMovieLike}
         moviesList={props.moviesList}
         shownListSize={props.shownListSize} 
-        onDelete={props.onDelete}/>
+        onDelete={props.onDelete}
+        isLiked={props.isLiked}/>
       <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>
     </section>
   )

@@ -3,19 +3,24 @@ import { Route } from 'react-router-dom';
 import './MoviesCard.css';
 
 function MoviesCard(props) {
-  const [isLiked, setIsLiked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
+
+  const movieLikeClassName = (
+    `movie-card__like-button ${props.isLiked ? 'movie-card__like-button_active' : ''}`
+  );
+
+  const durationInMinutes = props.duration;
+  const hours = Math.floor(durationInMinutes / 60);
+  const remainingMinutes = durationInMinutes % 60;
+
+
 
   // function handleLikeClick() {
   //   setIsLiked(!isLiked)
   // }
 
-  //   function getTimeFromMins(mins) {
-  //     let hours = Math.trunc(mins/60);
-  // 	let minutes = mins % 60;
-  // 	return hours + 'ч. ' + minutes + 'м.';
-  // };
   function handleLikeClick() {
-    setIsLiked(!isLiked);
+    // setIsLiked(!isLiked);
     props.onMovieLike({
       country: props.movie.country,
       director: props.movie.director,
@@ -26,16 +31,16 @@ function MoviesCard(props) {
       trailerLink: props.movie.trailerLink,
       nameRU: props.name,
       nameEN: props.movie.nameEN,
-      // thumbnail: props.thumbnail,
-      thumbnail: props.movie.image.formats.thumbnail.url,
+      thumbnail: props.thumbnail,
+      // thumbnail: props.movie.image.formats.thumbnail.url,
       movieId: props.movie.id,
     })
   }
 
-    function handleDeleteClick() {
-      debugger;
-      props.onDelete(props.movie);
-    }
+  function handleDeleteClick() {
+    debugger;
+    props.onDelete(props.movie);
+  }
 
 
 
@@ -47,7 +52,7 @@ function MoviesCard(props) {
         <Route path='/movies'>
           <button
             type='button'
-            className={`movie-card__like-button ${isLiked ? 'movie-card__like-button_active' : ''}`}
+            className={movieLikeClassName}
             aria-label='Сохранить'
             onClick={handleLikeClick}>
           </button>
@@ -61,7 +66,7 @@ function MoviesCard(props) {
           >
           </button>
         </Route>
-        <p className='movie-card__duration'>{props.movie.duration}</p>
+        <p className='movie-card__duration'>{`${hours}ч ${remainingMinutes}м`}</p>
       </div>
     </li>
   )

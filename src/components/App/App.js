@@ -28,7 +28,9 @@ function App() {
   const [isSignup, setIsSignup] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLiked, setIsLiked] = useState(false);
   const history = useHistory();
+
 
 
   //Токен, удалить при переходе на куки
@@ -197,9 +199,9 @@ function App() {
   function handleMovieLike(movie) {
     mainApi.addNewMovie(movie)
       .then((newMovie) => {
-        debugger;
-        setSavedMoviesList([newMovie.movie, ...savedMoviesList.movies]);
-        // setSavedMoviesList([newMovie.movie, ...savedMoviesList]);
+        // setSavedMoviesList([newMovie.movie, ...savedMoviesList.movies]);
+        // moviesList((state) => state.map((m) => m.id === movie.movieId ? newMovie.movie : m));
+        setSavedMoviesList([newMovie.movie, ...savedMoviesList]);
       })
       .catch((err) => {
         console.log(err);
@@ -305,7 +307,8 @@ function App() {
                 shownListSize={shownListSize}
                 onLoadMore={onLoadMore}
                 loggedIn={loggedIn}
-                onMovieLike={handleMovieLike}>
+                onMovieLike={handleMovieLike}
+                isLiked={isLiked}>
               </ProtectedRoute>
 
               <Route path='/saved-movies'>
