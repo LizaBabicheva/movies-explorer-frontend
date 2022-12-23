@@ -10,10 +10,13 @@ function MoviesCardList(props) {
       {props.moviesList.map((movie, idx) => (
         idx < props.shownListSize ?
           <MoviesCard
+            onMovieLike={props.onMovieLike}
             movie={movie}
             name={movie.nameRU}
             image={imageUrl + movie.image.url}
             duration={movie.duration}
+            // thumbnail= {imageUrl + movie.image.formats.thumbnail.url}
+            thumbnail= {movie.thumbnail}
             key={movie.id} />
           : ''
       ))}

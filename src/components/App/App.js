@@ -26,11 +26,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [isSignup, setIsSignup] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  // const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
 
 
-//Токен, удалить при переходе на куки
+  //Токен, удалить при переходе на куки
   // useEffect(() => {
   //   tokenCheck()
   // }, [])
@@ -62,19 +62,17 @@ function App() {
   //   setLoggedIn(false);
   //   history.push('/signin');
   // }
-//
+  //
 
   useEffect(() => {
-    loginCheck()
+    loginCheck();
+    // setIsLoading(false);
   }, [])
-
-
 
   useEffect((userData) => {
     if (loggedIn) {
       mainApi.getUserInfo(userData)
         .then((userInfo) => {
-
           // setCurrentUser(userInfo.data);
           setCurrentUser(userInfo);
         })
@@ -88,7 +86,7 @@ function App() {
     auth.getUserInfo()
       .then((res) => {
         // if (res.data._id) {
-          if (res._id) {
+        if (res._id) {
 
           // setEmail(res.data.email);
           setLoggedIn(true);
@@ -132,7 +130,6 @@ function App() {
       })
   }
 
-
   function handleSignOut() {
     auth.signout()
       .then(() => {
@@ -147,15 +144,15 @@ function App() {
   }
 
   function handleProfileChange(userData) {
-      mainApi.updateUserInfo(userData)
-        .then((userInfo) => {
-          // setCurrentUser(userInfo.data);
-          setCurrentUser(userInfo.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
+    mainApi.updateUserInfo(userData)
+      .then((userInfo) => {
+        // setCurrentUser(userInfo.data);
+        setCurrentUser(userInfo.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
 
 
@@ -186,43 +183,43 @@ function App() {
       })
   }, [loggedIn])
 
-  useEffect((savedMovies) => {
-    mainApi.getSavedMovies(savedMovies)
-    .then((savedMovies) => {
-      setSavedMoviesList(savedMovies)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-}, [loggedIn])
-
-
-
-  useEffect((savedMoviesData) => {
-    mainApi.getSavedMovies(savedMoviesData)
-      .then((savedMoviesData) => {
-        setSavedMoviesList(savedMoviesData)
+  useEffect((initialSavedMoviesData) => {
+    mainApi.getSavedMovies(initialSavedMoviesData)
+      .then((initialSavedMoviesData) => {
+        setSavedMoviesList(initialSavedMoviesData.movies)
       })
       .catch((err) => {
         console.log(err);
       })
-  }, [])
-
+  }, [loggedIn])
 
   function handleMovieLike(movie) {
-    debugger;
     mainApi.addNewMovie(movie)
-    .then((newMovie) => {
-          setSavedMoviesList([newMovie.movie, ...savedMoviesList]);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
+      .then((newMovie) => {
+        debugger;
+        setSavedMoviesList([newMovie.movie, ...savedMoviesList.movies]);
+        // setSavedMoviesList([newMovie.movie, ...savedMoviesList]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
 
-    // const isLiked = card.likes.some(i => i === currentUser._id);
-    // mainApi.changeLikeApi(card._id, !isLiked)
+  // const isLiked = card.likes.some(i => i === currentUser._id);
+  // api.changeLikeApi(card._id, !isLiked)
+  //   .then((newCard) => {
+  //     setCards((state) => state.map((c) => c._id === card._id ? newCard.data : c));
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+
+
+
+
+  // const isLiked = card.likes.some(i => i === currentUser._id);
+  // mainApi.changeLikeApi(card._id, !isLiked)
   //   mainApi.changeLikeApi(movie._id)
   //     .then((newCard) => {
   //       setCards((state) => state.map((c) => c._id === card._id ? newCard.data : c));
@@ -308,21 +305,21 @@ function App() {
           <Route path='/profile'>
             <Profile
               currentUser={currentUser}
-            onSignout={handleSignOut}
-            onProfileChange={handleProfileChange}
+              onSignout={handleSignOut}
+              onProfileChange={handleProfileChange}
 
             />
           </Route>
 
           <Route path='/signin'>
             <Login
-            onLogin={handleLogin}
+              onLogin={handleLogin}
             />
           </Route>
 
           <Route path='/signup'>
             <Register
-            onSignup={handleSignup} 
+              onSignup={handleSignup}
             />
           </Route>
 

@@ -5,16 +5,32 @@ import './MoviesCard.css';
 function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
 
+  // function handleLikeClick() {
+  //   setIsLiked(!isLiked)
+  // }
+
+  //   function getTimeFromMins(mins) {
+  //     let hours = Math.trunc(mins/60);
+  // 	let minutes = mins % 60;
+  // 	return hours + 'ч. ' + minutes + 'м.';
+  // };
   function handleLikeClick() {
-    setIsLiked(!isLiked)
+    setIsLiked(!isLiked);
+    props.onMovieLike({
+      country: props.movie.country,
+      director: props.movie.director,
+      duration: props.duration,
+      year: props.movie.year,
+      description: props.movie.description,
+      image: props.image,
+      trailerLink: props.movie.trailerLink,
+      nameRU: props.name,
+      nameEN: props.movie.nameEN,
+      // thumbnail: props.thumbnail,
+      thumbnail: props.movie.image.formats.thumbnail.url,
+      movieId: props.movie.id,
+    });
   }
-
-//   function getTimeFromMins(mins) {
-//     let hours = Math.trunc(mins/60);
-// 	let minutes = mins % 60;
-// 	return hours + 'ч. ' + minutes + 'м.';
-// };
-
 
 
   return (
@@ -27,7 +43,7 @@ function MoviesCard(props) {
             type='button'
             className={`movie-card__like-button ${isLiked ? 'movie-card__like-button_active' : ''}`}
             aria-label='Сохранить'
-            onClick={props.onMovieLike}>
+            onClick={handleLikeClick}>
           </button>
         </Route>
         <Route path='/saved-movies'>

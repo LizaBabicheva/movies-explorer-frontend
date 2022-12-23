@@ -66,18 +66,17 @@ class MainApi {
       credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.nameRU,
+        nameRU: data.nameRU,
         image: data.image,
-        trailer: data.trailerLink,
-        duration: data.duration
-        // country,
-        // director,
-        // year,
-        // description,
-        // image,
-        // nameEN,
-        // thumbnail,
-        // movieId,
+        trailerLink: data.trailerLink,
+        duration: data.duration,
+        country: data.country,
+        director: data.director,
+        year: data.year,
+        description: data.description,
+        nameEN: data.nameEN,
+        thumbnail: data.thumbnail,
+        movieId: data.movieId,
 
       })
     })
