@@ -9,17 +9,25 @@ function MoviesCard(props) {
     setIsLiked(!isLiked)
   }
 
+//   function getTimeFromMins(mins) {
+//     let hours = Math.trunc(mins/60);
+// 	let minutes = mins % 60;
+// 	return hours + 'ч. ' + minutes + 'м.';
+// };
+
+
+
   return (
     <li className='movie-card'>
-      <img className='movie-card__img' alt={`Постер к фильму ${props.movie.title}`} src={props.movie.image}></img>
+      <img className='movie-card__img' alt={`Постер к фильму ${props.name}`} src={props.image}></img>
       <div className='movie-card__description'>
-        <h2 className='movie-card__title'>{props.movie.title}</h2>
+        <h2 className='movie-card__title'>{props.name}</h2>
         <Route path='/movies'>
           <button
             type='button'
             className={`movie-card__like-button ${isLiked ? 'movie-card__like-button_active' : ''}`}
             aria-label='Сохранить'
-            onClick={handleLikeClick}>
+            onClick={props.onMovieLike}>
           </button>
         </Route>
         <Route path='/saved-movies'>

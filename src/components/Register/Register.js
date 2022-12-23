@@ -1,14 +1,41 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.svg';
 
-function Register() {
+function Register({ onSignup }) {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleUserNameChange(e) {
+    setName(e.target.value);
+  }
+
+  function handleUserEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleUserPasswordChange(e) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSignup({
+      name,
+      email,
+      password
+    });
+  }
+
   return (
     <section className='register'>
       <Link className='register__logo' to='/'><img src={logo} alt='Лого'></img></Link>
       <h2 className='register__title'>Добро пожаловать!</h2>
 
-      <form className='register__form'>
+      <form className='register__form' onSubmit={handleSubmit}>
         <label
           className='register__label'
           htmlFor='name'>Имя</label>
@@ -19,7 +46,9 @@ function Register() {
           maxLength='30'
           required
           id='name'
-          name='name'>
+          name='name'
+          value={name}
+          onChange={handleUserNameChange}>
         </input>
         <span className='register__error'></span>
 
@@ -31,7 +60,9 @@ function Register() {
           type='email'
           required
           id='email'
-          name='email'>
+          name='email'
+          value={email}
+          onChange={handleUserEmailChange}>
         </input>
         <span className='register__error'></span>
 
@@ -43,7 +74,9 @@ function Register() {
           type='password'
           required
           id='password'
-          name='password'>
+          name='password'
+          value={password}
+          onChange={handleUserPasswordChange}>
         </input>
         <span className='register__error'>Что-то пошло не так...</span>
 

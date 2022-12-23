@@ -3,9 +3,8 @@ import './Header.css';
 import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
 
-function Header() {
+function Header({ loggedIn }) {
   const location = useLocation();
-
   const navPathArray = ['/movies', '/saved-movies', '/profile'];
 
   return (
@@ -16,10 +15,12 @@ function Header() {
       </Link>
 
       <Route exact path='/'>
-        <nav className='header__menu'>
+        {loggedIn ? <Navigation />
+        
+          : <nav className='header__menu'>
           <Link className='header__menu-link' to='/signup'>Регистрация</Link>
           <Link className='header__menu-link header__menu-link_type_button' to='/signin'>Войти</Link>
-        </nav>
+        </nav>}
       </Route>
 
       <Route path={navPathArray}>

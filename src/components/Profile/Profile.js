@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import './Profile.css';
 
-import { userContext } from '../../contexts/CurrentUserContext';
+// import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile() {
-
+function Profile({ onSignout, currentUser, onProfileChange }) {
+  // const currentUserProfile = CurrentUserContext;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    setName(userContext.name);
-    setEmail(userContext.email)
+    setName(currentUser.name);
+    setEmail(currentUser.email)
   }, []);
 
   function handleNameChange(e) {
@@ -21,11 +21,20 @@ function Profile() {
     setEmail(e.target.value);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    onProfileChange({
+      name,
+      email
+    })
+  }
+
   return (
     <section className='profile'>
       <div className='profile__info'>
-        <h2 className='profile__greeting'>Привет,&nbsp;{userContext.name}!</h2>
-        <form className='profile__info-form'>
+        <h2 className='profile__greeting'>Привет,&nbsp;{currentUser.name}!</h2>
+        <form className='profile__info-form'
+          onSubmit={handleSubmit}>
           <label className='profile__input-label' htmlFor='profile-name'>Имя
             <input
               className='profile__input'
@@ -58,13 +67,20 @@ function Profile() {
               className='profile__button profile__button_type_edit'
               type='submit'>
               Редактировать</button>
-            <button
+            {/* <button
               className='profile__button profile__button_type_signout'
-              type='submit'>
+              // type='submit'
+              onClick={onSignout}>
               Выйти из аккаунта
-            </button>
+            </button> */}
           </div>
         </form>
+        <button
+          className='profile__button profile__button_type_signout'
+          // type='submit'
+          onClick={onSignout}>
+          Выйти из аккаунта
+        </button>
       </div>
     </section >
   )
