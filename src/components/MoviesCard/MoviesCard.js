@@ -45,11 +45,11 @@ function MoviesCard(props) {
 
 
   return (
-    <li className='movie-card'
-      title='Кликните, чтоб посмотреть трейлер'
-      onClick={handleClick}>
+    <li className='movie-card'>
       <img className='movie-card__img' alt={`Постер к фильму ${props.name}`}
-        src={props.image}></img>
+        src={props.image}
+        title='Кликните, чтоб посмотреть трейлер'
+        onClick={handleClick}></img>
       <div className='movie-card__description'>
         <h2 className='movie-card__title'>{props.name}</h2>
         <Route path='/movies'>

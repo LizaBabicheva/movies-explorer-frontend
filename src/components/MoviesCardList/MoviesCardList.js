@@ -10,6 +10,7 @@ function MoviesCardList(props) {
       {props.moviesList.map((movie, idx) => (
         idx < props.shownListSize ?
           <MoviesCard
+          
             onMovieLike={props.onMovieLike}
             movie={movie}
             name={movie.nameRU}

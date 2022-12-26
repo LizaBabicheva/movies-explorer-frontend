@@ -176,8 +176,8 @@ function App() {
   //   })
   // }
 
-  useEffect((initialMoviesData) => {
-    moviesApi.getInitialMovies(initialMoviesData)
+  useEffect(() => {
+    moviesApi.getInitialMovies()
       .then((initialMoviesData) => {
         setMoviesList(initialMoviesData)
       })
@@ -186,17 +186,33 @@ function App() {
       })
   }, [loggedIn])
 
-  useEffect((initialSavedMoviesData) => {
-    mainApi.getSavedMovies(initialSavedMoviesData)
-      .then((initialSavedMoviesData) => {
-        setSavedMoviesList(initialSavedMoviesData.movies)
+  useEffect(() => {
+    mainApi.getSavedMovies()
+      .then((savedMoviesData) => {
+        setSavedMoviesList(savedMoviesData.movies);
       })
       .catch((err) => {
         console.log(err);
       })
   }, [loggedIn])
 
-  function handleMovieLike(movie) {
+
+  // useEffect(() => {
+  //   debugger;
+  //   savedMoviesList.forEach(savedMovie => moviesList.forEach(movie => {
+  //     debugger;
+  //     if (movie.id === savedMovie.movieId) {
+  //       movie.setIsLiked(true);
+  //     }
+  //   }));
+  // }, [savedMoviesList]);
+
+
+
+
+
+
+  function handleMovieSave(movie) {
     mainApi.addNewMovie(movie)
       .then((newMovie) => {
         // setSavedMoviesList([newMovie.movie, ...savedMoviesList.movies]);
@@ -210,7 +226,6 @@ function App() {
 
 
   function handleMovieDelete(movie) {
-    debugger;
     mainApi.deleteMovieApi(movie._id)
       .then(() => {
         setSavedMoviesList((movies) => movies.filter(item => item._id !== movie._id));
@@ -307,26 +322,28 @@ function App() {
                 shownListSize={shownListSize}
                 onLoadMore={onLoadMore}
                 loggedIn={loggedIn}
-                onMovieLike={handleMovieLike}
+                onMovieLike={handleMovieSave}
                 isLiked={isLiked}>
               </ProtectedRoute>
 
-              <Route path='/saved-movies'>
-                <SavedMovies
-                  moviesList={savedMoviesList}
-                  shownListSize={shownListSize}
-                  onLoadMore={onLoadMore}
-                  onDelete={handleMovieDelete} />
-              </Route>
+              <ProtectedRoute
+                component={SavedMovies}
+                path='/saved-movies'
+                loggedIn={loggedIn}
+                moviesList={savedMoviesList}
+                shownListSize={shownListSize}
+                onLoadMore={onLoadMore}
+                onDelete={handleMovieDelete}>
+              </ProtectedRoute>
 
-              <Route path='/profile'>
-                <Profile
-                  currentUser={currentUser}
-                  onSignout={handleSignOut}
-                  onProfileChange={handleProfileChange}
-
-                />
-              </Route>
+              <ProtectedRoute
+                component={Profile}
+                path='/profile'
+                loggedIn={loggedIn}
+                currentUser={currentUser}
+                onSignout={handleSignOut}
+                onProfileChange={handleProfileChange}>
+              </ProtectedRoute>
 
               <Route path='/signin'>
                 <Login
@@ -354,7 +371,7 @@ function App() {
           </>
         }
       </div>
-    </CurrentUserContext.Provider>
+    </CurrentUserContext.Provider >
   );
 }
 
