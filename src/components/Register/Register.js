@@ -5,6 +5,8 @@ import logo from '../../images/logo.svg';
 
 function Register({ onSignup }) {
 
+
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,6 +46,7 @@ function Register({ onSignup }) {
           type='text'
           minLength='2'
           maxLength='30'
+          pattern='/[a-zA-Zа-яА-Я\-\ ]/gm'
           required
           id='name'
           name='name'

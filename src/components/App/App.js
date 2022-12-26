@@ -294,9 +294,9 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
-        {isLoading ?
+        {/* {isLoading ?
           <Preloader /> :
-          <>
+          <> */}
             <Route exact path={headerPathArray}>
               <Header
                 loggedIn={loggedIn} />
@@ -307,13 +307,6 @@ function App() {
                 <Main />
               </Route>
 
-              {/* <Route path='/movies'>
-            <Movies
-              moviesList={moviesList}
-              shownListSize={shownListSize}
-              onLoadMore={onLoadMore}
-            />
-          </Route> */}
 
               <ProtectedRoute
                 component={Movies}
@@ -368,8 +361,8 @@ function App() {
             <Route exact path={footerPathArray}>
               <Footer />
             </Route>
-          </>
-        }
+          {/* </>
+        } */}
       </div>
     </CurrentUserContext.Provider >
   );
