@@ -13,8 +13,6 @@ function MoviesCard(props) {
   const hours = Math.floor(durationInMinutes / 60);
   const remainingMinutes = durationInMinutes % 60;
 
-
-
   // function handleLikeClick() {
   //   setIsLiked(!isLiked)
   // }
@@ -28,25 +26,30 @@ function MoviesCard(props) {
       year: props.movie.year,
       description: props.movie.description,
       image: props.image,
-      trailerLink: props.movie.trailerLink,
+      trailerLink: props.trailerLink,
       nameRU: props.name,
       nameEN: props.movie.nameEN,
-      thumbnail: props.thumbnail,
-      // thumbnail: props.movie.image.formats.thumbnail.url,
+      // thumbnail: props.thumbnail,
+      thumbnail: props.movie.image.formats.thumbnail.url,
       movieId: props.movie.id,
     })
   }
 
   function handleDeleteClick() {
-    debugger;
     props.onDelete(props.movie);
   }
 
+  function handleClick() {
+    window.open(props.trailerLink, '_blank');
+  }
 
 
   return (
-    <li className='movie-card'>
-      <img className='movie-card__img' alt={`Постер к фильму ${props.name}`} src={props.image}></img>
+    <li className='movie-card'
+      title='Кликните, чтоб посмотреть трейлер'
+      onClick={handleClick}>
+      <img className='movie-card__img' alt={`Постер к фильму ${props.name}`}
+        src={props.image}></img>
       <div className='movie-card__description'>
         <h2 className='movie-card__title'>{props.name}</h2>
         <Route path='/movies'>
