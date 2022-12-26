@@ -69,6 +69,7 @@ function App() {
 
   useEffect(() => {
     loginCheck();
+    // setIsLoading(false);
   }, [])
 
   useEffect((userData) => {
@@ -77,7 +78,6 @@ function App() {
         .then((userInfo) => {
           // setCurrentUser(userInfo.data);
           setCurrentUser(userInfo);
-          setIsLoading(false);
         })
         .catch((err) => {
           console.log(err);
@@ -90,14 +90,15 @@ function App() {
       .then((res) => {
         // if (res.data._id) {
         if (res._id) {
-
           // setEmail(res.data.email);
           setLoggedIn(true);
-          // history.push('/');
+          history.push('/movies');
         }
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       })
   }
 
@@ -108,7 +109,7 @@ function App() {
         if (res) {
           setIsSignup(true);
           // handleInfoTooltip();
-          history.push('/signin');
+          history.push('/movies');
         }
       })
       .catch((err) => {
@@ -125,7 +126,7 @@ function App() {
           localStorage.setItem('token', res.token);
           // setEmail(data.email);
           setLoggedIn(true);
-          history.push('/');
+          history.push('/movies');
         }
       })
       .catch((err) => {
@@ -294,9 +295,9 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
-        {/* {isLoading ?
+        {isLoading ?
           <Preloader /> :
-          <> */}
+          <>
             <Route exact path={headerPathArray}>
               <Header
                 loggedIn={loggedIn} />
@@ -361,8 +362,8 @@ function App() {
             <Route exact path={footerPathArray}>
               <Footer />
             </Route>
-          {/* </>
-        } */}
+          </>
+        }
       </div>
     </CurrentUserContext.Provider >
   );

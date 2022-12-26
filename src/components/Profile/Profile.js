@@ -41,11 +41,12 @@ function Profile({ onSignout, currentUser, onProfileChange }) {
               type='text'
               minLength='2'
               maxLength='30'
+              pattern='/[a-zA-Zа-яА-Я\-\ ]/gm'
+              required
               id='profile-name'
               placeholder='Введите имя'
               value={name}
-              onChange={handleNameChange}
-              required>
+              onChange={handleNameChange}>
             </input>
           </label>
           <span className='profile__input-error'></span>
