@@ -29,6 +29,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
+  const [moviesIsLoading, setMoviesIsLoading] = useState(false);
   const history = useHistory();
 
 
@@ -177,15 +178,31 @@ function App() {
   //   })
   // }
 
-  useEffect(() => {
+
+  function handleMoviesSearch(searchQuery) {
+    setMoviesIsLoading(true);
     moviesApi.getInitialMovies()
       .then((initialMoviesData) => {
-        setMoviesList(initialMoviesData)
+        // setMoviesList(initialMoviesData);
+        setMoviesList(initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
+        setMoviesIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setMoviesIsLoading(false);
       })
-  }, [loggedIn])
+  }
+
+
+  // useEffect(() => {
+  //   moviesApi.getInitialMovies()
+  //     .then((initialMoviesData) => {
+  //       setMoviesList(initialMoviesData)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }, [loggedIn])
 
   useEffect(() => {
     mainApi.getSavedMovies()
@@ -317,7 +334,9 @@ function App() {
                 onLoadMore={onLoadMore}
                 loggedIn={loggedIn}
                 onMovieLike={handleMovieSave}
-                isLiked={isLiked}>
+                onSearch={handleMoviesSearch}
+                isLiked={isLiked}
+                moviesIsLoading={moviesIsLoading}>
               </ProtectedRoute>
 
               <ProtectedRoute

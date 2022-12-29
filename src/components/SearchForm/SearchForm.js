@@ -12,7 +12,8 @@ function SearchForm({ onSearch }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSearch();
+    // onSearch();
+    onSearch(searchQuery);
   }
 
   return (
