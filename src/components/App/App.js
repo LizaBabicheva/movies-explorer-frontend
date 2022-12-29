@@ -92,7 +92,7 @@ function App() {
         if (res._id) {
           // setEmail(res.data.email);
           setLoggedIn(true);
-          history.push('/movies');
+          // history.push('/movies');
         }
         setIsLoading(false);
       })
@@ -334,7 +334,7 @@ function App() {
                 component={Profile}
                 path='/profile'
                 loggedIn={loggedIn}
-                currentUser={currentUser}
+                // currentUser={currentUser}
                 onSignout={handleSignOut}
                 onProfileChange={handleProfileChange}>
               </ProtectedRoute>

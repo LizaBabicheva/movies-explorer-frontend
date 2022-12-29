@@ -1,84 +1,98 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import './Profile.css';
+import useForm from '../../utils/useForm';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-// import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+function Profile({ onSignout, onProfileChange }) {
 
-function Profile({ onSignout, currentUser, onProfileChange }) {
-  // const currentUserProfile = CurrentUserContext;
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email)
-  }, []);
+    if (currentUser.name) {
+      processChanges("name", currentUser.name);
+      processChanges("email", currentUser.email);
+    }
+  }, [currentUser]);
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
+  const stateSchema = {
+    name: { value: '', error: '' },
+    email: { value: '', error: '' },
+  };
 
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
+  const validationStateSchema = {
+    name: {
+      required: true,
+      validator: {
+        regEx: /^[a-zA-Zа-яА-Я\- ]+$/,
+        error: 'Поле может содержать только латиницу, кириллицу, пробел или дефис',
+      },
+    },
+    email: {
+      required: true,
+      validator: {
+        regEx: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/,
+        error: 'Поле должно соответствовать шаблону электронной почты',
+      },
+    },
+  };
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function onSubmitForm(state) {
     onProfileChange({
-      name,
-      email
-    })
+      name: state.name.value,
+      email: state.email.value,
+    });
   }
+
+  const { state, handleOnChange, handleOnSubmit, disable, processChanges } = useForm(
+    stateSchema,
+    validationStateSchema,
+    onSubmitForm
+  );
 
   return (
     <section className='profile'>
       <div className='profile__info'>
         <h2 className='profile__greeting'>Привет,&nbsp;{currentUser.name}!</h2>
-        <form className='profile__info-form'
-          onSubmit={handleSubmit}>
+        <form className='profile__info-form' onSubmit={handleOnSubmit}>
           <label className='profile__input-label' htmlFor='profile-name'>Имя
             <input
-              className='profile__input'
+              className={`profile__input ${state.name.error && 'profile__input_type_error'}`}
               type='text'
               minLength='2'
               maxLength='30'
-              pattern='/[a-zA-Zа-яА-Я\-\ ]/gm'
               required
               id='profile-name'
+              name='name'
               placeholder='Введите имя'
-              value={name}
-              onChange={handleNameChange}>
+              value={state.name.value}
+              onChange={handleOnChange}>
             </input>
           </label>
-          <span className='profile__input-error'></span>
+          <span className='profile__input-error'>{state.name.error}</span>
           <label className='profile__input-label' htmlFor='profile-email'>E-mail
             <input
-              className='profile__input'
+              className={`profile__input ${state.email.error && 'profile__input_type_error'}`}
               type='email'
+              required
               id='profile-email'
+              name='email'
               placeholder='Введите email'
-              value={email}
-              onChange={handleEmailChange}
-              required>
+              value={state.email.value}
+              onChange={handleOnChange}>
             </input>
           </label>
-          <span className='profile__input-error'></span>
+          <span className='profile__input-error'>{state.email.error}</span>
 
           <div className='profile__button-wrap'>
             <button
-              className='profile__button profile__button_type_edit'
-              type='submit'>
+              className={`profile__button profile__button_type_edit ${disable && 'profile__button_disabled'}`}
+              type='submit'
+              disabled={disable}>
               Редактировать</button>
-            {/* <button
-              className='profile__button profile__button_type_signout'
-              // type='submit'
-              onClick={onSignout}>
-              Выйти из аккаунта
-            </button> */}
           </div>
         </form>
         <button
           className='profile__button profile__button_type_signout'
-          // type='submit'
           onClick={onSignout}>
           Выйти из аккаунта
         </button>

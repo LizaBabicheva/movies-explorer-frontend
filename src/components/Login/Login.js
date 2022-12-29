@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import './Login.css';
 import logo from '../../images/logo.svg';
-import useForm from '../useForm/useForm';
+import useForm from '../../utils/useForm';
 
 function Login({ onLogin }) {
 
@@ -77,7 +77,8 @@ function Login({ onLogin }) {
 
         <button
           className={`login__submit ${disable && 'login__submit_disabled'}`}
-          type='submit'>Войти</button>
+          type='submit'
+          disabled={disable}>Войти</button>
       </form>
 
       <div className='login__register'>

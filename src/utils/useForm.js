@@ -34,37 +34,67 @@ function useForm(stateSchema, validationSchema = {}, callback) {
     return hasErrorInState;
   }, [state, validationSchema]);
 
+
   // Used to handle every changes in every input
   const handleOnChange = useCallback(
     event => {
-      setIsDirty(true);
+      processChanges(event.target.name, event.target.value);
+      // setIsDirty(true);
 
-      const name = event.target.name;
-      const value = event.target.value;
+      // const name = event.target.name;
+      // const value = event.target.value;
 
-      let error = '';
-      if (validationSchema[name].required) {
-        if (!value) {
-          error = 'Заполните это поле.';
-        }
-      }
+      // let error = '';
+      // if (validationSchema[name].required) {
+      //   if (!value) {
+      //     error = 'Заполните это поле.';
+      //   }
+      // }
 
-      if (
-        validationSchema[name].validator !== null &&
-        typeof validationSchema[name].validator === 'object'
-      ) {
-        if (value && !validationSchema[name].validator.regEx.test(value)) {
-          error = validationSchema[name].validator.error;
-        }
-      }
+      // if (
+      //   validationSchema[name].validator !== null &&
+      //   typeof validationSchema[name].validator === 'object'
+      // ) {
+      //   if (value && !validationSchema[name].validator.regEx.test(value)) {
+      //     error = validationSchema[name].validator.error;
+      //   }
+      // }
 
-      setState(prevState => ({
-        ...prevState,
-        [name]: { value, error },
-      }));
+      // setState(prevState => ({
+      //   ...prevState,
+      //   [name]: { value, error },
+      // }));
     },
     [validationSchema]
   );
+
+  const processChanges = function(fieldName, fieldValue) {
+    setIsDirty(true);
+
+    const name = fieldName;
+    const value = fieldValue;
+
+    let error = '';
+    if (validationSchema[name].required) {
+      if (!value) {
+        error = 'Заполните это поле.';
+      }
+    }
+
+    if (
+      validationSchema[name].validator !== null &&
+      typeof validationSchema[name].validator === 'object'
+    ) {
+      if (value && !validationSchema[name].validator.regEx.test(value)) {
+        error = validationSchema[name].validator.error;
+      }
+    }
+
+    setState(prevState => ({
+      ...prevState,
+      [name]: { value, error },
+    }));
+  }
 
   const handleOnSubmit = useCallback(
     event => {
@@ -79,7 +109,7 @@ function useForm(stateSchema, validationSchema = {}, callback) {
     [state]
   );
 
-  return { state, disable, handleOnChange, handleOnSubmit };
+  return { state, disable, handleOnChange, handleOnSubmit, processChanges };
 }
 
 export default useForm;

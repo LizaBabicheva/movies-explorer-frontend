@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.svg';
-import useForm from '../useForm/useForm';
+import useForm from '../../utils/useForm';
 
 function Register({ onSignup }) {
 
@@ -107,7 +107,8 @@ function Register({ onSignup }) {
           className={`register__submit ${disable && 'register__submit_disabled'}`}
           type='submit'
           disabled={disable}
-          title='Заполните форму'>
+          // title='Заполните форму'
+          >
           Зарегистрироваться
         </button>
       </form >
