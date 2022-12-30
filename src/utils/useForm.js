@@ -23,15 +23,13 @@ function useForm(stateSchema, validationSchema = {}, callback) {
   // Wrapped in useCallback to cached the function to avoid intensive memory leaked
   // in every re-render in component
   const validateState = useCallback(() => {
-    const hasErrorInState = Object.keys(validationSchema).some(key => {
+    return Object.keys(validationSchema).find(key => {
       const isInputFieldRequired = validationSchema[key].required;
       const stateValue = state[key].value; // state value
       const stateError = state[key].error; // state error
-
       return (isInputFieldRequired && !stateValue) || stateError;
     });
-
-    return hasErrorInState;
+    
   }, [state, validationSchema]);
 
 
@@ -39,31 +37,6 @@ function useForm(stateSchema, validationSchema = {}, callback) {
   const handleOnChange = useCallback(
     event => {
       processChanges(event.target.name, event.target.value);
-      // setIsDirty(true);
-
-      // const name = event.target.name;
-      // const value = event.target.value;
-
-      // let error = '';
-      // if (validationSchema[name].required) {
-      //   if (!value) {
-      //     error = 'Заполните это поле.';
-      //   }
-      // }
-
-      // if (
-      //   validationSchema[name].validator !== null &&
-      //   typeof validationSchema[name].validator === 'object'
-      // ) {
-      //   if (value && !validationSchema[name].validator.regEx.test(value)) {
-      //     error = validationSchema[name].validator.error;
-      //   }
-      // }
-
-      // setState(prevState => ({
-      //   ...prevState,
-      //   [name]: { value, error },
-      // }));
     },
     [validationSchema]
   );
@@ -75,18 +48,25 @@ function useForm(stateSchema, validationSchema = {}, callback) {
     const value = fieldValue;
 
     let error = '';
-    if (validationSchema[name].required) {
+
+    const schemaField = validationSchema[name];
+
+    if (schemaField.required) {
       if (!value) {
-        error = 'Заполните это поле.';
+        if (schemaField.requiredErrorMessage) {
+          error = schemaField.requiredErrorMessage;
+        } else {
+          error = 'Заполните это поле.';
+        }
       }
     }
 
     if (
-      validationSchema[name].validator !== null &&
-      typeof validationSchema[name].validator === 'object'
+      schemaField.validator !== null &&
+      typeof schemaField.validator === 'object'
     ) {
-      if (value && !validationSchema[name].validator.regEx.test(value)) {
-        error = validationSchema[name].validator.error;
+      if (value && !schemaField.validator.regEx.test(value)) {
+        error = schemaField.validator.error;
       }
     }
 
@@ -99,11 +79,16 @@ function useForm(stateSchema, validationSchema = {}, callback) {
   const handleOnSubmit = useCallback(
     event => {
       event.preventDefault();
-
       // Make sure that validateState returns false
       // Before calling the submit callback function
-      if (!validateState()) {
+      const errorField = validateState();
+      if (!errorField) {
         callback(state);
+      } else{
+        setState(prevState => ({
+          ...prevState,
+          [errorField]: { value:'', error: validationSchema[errorField].requiredErrorMessage },
+        }));
       }
     },
     [state]
