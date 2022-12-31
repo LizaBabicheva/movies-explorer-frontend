@@ -28,9 +28,10 @@ function App() {
   const [isSignup, setIsSignup] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLiked, setIsLiked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
   const [moviesIsLoading, setMoviesIsLoading] = useState(false);
   const history = useHistory();
+  const [savedMovieIdByMovieId, setSavedMovieIdByMovieId] = useState({});
 
 
   //юзер
@@ -50,6 +51,13 @@ function App() {
         })
     }
   }, [loggedIn])
+
+  function isLiked(movie) {
+    // return moviesList.length > 0 && savedMoviesList.includes(savedMovie => savedMovie._id === movie.id );
+    return savedMoviesList.some( 
+      savedMovie => savedMovie.movieId === movie.id
+    );
+  }
 
   function loginCheck() {
     auth.getUserInfo()
@@ -140,36 +148,26 @@ function App() {
       })
   }
   
-  //   return (
-  //     <div>
-  //       {/* The checkbox input */}
-  //       <input type="checkbox" checked={checked} onChange={handleChange} />
-  //       Only show fruits
-  //       {/* Render the filtered items */}
-  //       {filteredItems.map(item => (
-  //         <div key={item.name}>{item.name}</div>
-  //       ))}
-  //     </div>
-  //   );
-  // };
   const [isChecked, setIsChecked] = useState(false);
   
   function handleCheckbox() {
     setIsChecked(!isChecked);
   }
-  
-// useEffect(() => {
-//     if (isChecked === true) {
-//       return moviesList.filter(movie => movie.duration <= 100);
-//     }
-//     return moviesList;
-// }, [isChecked])
 
 
   useEffect(() => {
     mainApi.getSavedMovies()
       .then((savedMoviesData) => {
         setSavedMoviesList(savedMoviesData.movies);
+
+        setSavedMovieIdByMovieId(savedMoviesData.movies.reduce(
+          (result, movie) => Object.assign(result, { [movie.movieId]: movie._id }), {}));
+        
+        // setSavedMovieIdByMovieId(
+        //   new Map(
+        //   savedMoviesData.movies.map(movie => [
+        //   movie.movieId, movie._id
+        // ])));
       })
       .catch((err) => {
         console.log(err);
@@ -188,6 +186,13 @@ function App() {
   // }, [savedMoviesList]);
 
 
+  // useEffect(() => {
+  //   debugger;
+  //   if (moviesList.length > 0 && moviesList.includes(movie => movie.id === savedMoviesList.map(item => item.movieId))) {
+  //     setIsLiked(true);
+  //   }
+  // }, [])
+
    
   function handleMovieSave(movie) {
     mainApi.addNewMovie(movie)
@@ -202,10 +207,10 @@ function App() {
   }
 
 
-  function handleMovieDelete(movie) {
-    mainApi.deleteMovieApi(movie._id)
+  function handleMovieDelete(movieId) {
+    mainApi.deleteMovieApi(movieId)
       .then(() => {
-        setSavedMoviesList((movies) => movies.filter(item => item._id !== movie._id));
+        setSavedMoviesList((movies) => movies.filter(item => item._id !== movieId));
       })
       .catch((err) => {
         console.log(err);
@@ -298,6 +303,8 @@ function App() {
                 moviesIsLoading={moviesIsLoading}
                 isChecked={isChecked}
                 onCheckbox={handleCheckbox}
+                onDelete={handleMovieDelete}
+                savedMovieIdByMovieId={savedMovieIdByMovieId}
                 >
               </ProtectedRoute>
 

@@ -26,6 +26,7 @@ function Movies(props) {
             shownListSize={props.shownListSize}
             onDelete={props.onDelete}
             isLiked={props.isLiked}
+            savedMovieIdByMovieId={props.savedMovieIdByMovieId}
             isChecked={props.isChecked} />
 
           <Route path='/movies'>

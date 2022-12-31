@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './MoviesCard.css';
 
-function MoviesCard({ movie, onMovieLike, onDelete, isLiked }) {
+function MoviesCard({ movie, onMovieLike, onDelete, isLiked, savedMovieIdByMovieId }) {
   // const [isLiked, setIsLiked] = useState(false);
 
   const movieLikeClassName = (
-    `movie-card__like-button ${movie.isLiked ? 'movie-card__like-button_active' : ''}`
+    `movie-card__like-button ${isLiked ? 'movie-card__like-button_active' : ''}`
   );
+
+  //
+  //
 
   const imageUrl = 'https://api.nomoreparties.co/';
 
@@ -19,27 +23,35 @@ function MoviesCard({ movie, onMovieLike, onDelete, isLiked }) {
   //   setIsLiked(!isLiked)
   // }
 
+  // function handleLike(liked) {
+  //   setIsLiked(liked)
+  // }
+
   function handleLikeClick() {
     // setIsLiked(!isLiked);
-    onMovieLike(
-      {
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: imageUrl + movie.image.url,
-        trailerLink: movie.trailerLink,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-        thumbnail: imageUrl + movie.image.formats.thumbnail.url,
-        movieId: movie.id,
-      }
-    )
+    if (isLiked) {
+      onDelete(savedMovieIdByMovieId[movie.id]); 
+    } else {
+      onMovieLike(
+        {
+          country: movie.country,
+          director: movie.director,
+          duration: movie.duration,
+          year: movie.year,
+          description: movie.description,
+          image: imageUrl + movie.image.url,
+          trailerLink: movie.trailerLink,
+          nameRU: movie.nameRU,
+          nameEN: movie.nameEN,
+          thumbnail: imageUrl + movie.image.formats.thumbnail.url,
+          movieId: movie.id,
+        }
+      )
+    }
   }
 
   function handleDeleteClick() {
-    onDelete(movie);
+    onDelete(movie._id);
   }
 
   function handleClick() {
