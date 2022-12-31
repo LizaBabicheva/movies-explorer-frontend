@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import './MoviesCard.css';
 
-function MoviesCard(props) {
+function MoviesCard({ movie, onMovieLike, onDelete, isLiked }) {
   // const [isLiked, setIsLiked] = useState(false);
 
   const movieLikeClassName = (
-    `movie-card__like-button ${props.isLiked ? 'movie-card__like-button_active' : ''}`
+    `movie-card__like-button ${movie.isLiked ? 'movie-card__like-button_active' : ''}`
   );
 
-  const durationInMinutes = props.duration;
+  const imageUrl = 'https://api.nomoreparties.co/';
+
+  const durationInMinutes = movie.duration;
   const hours = Math.floor(durationInMinutes / 60);
   const remainingMinutes = durationInMinutes % 60;
 
@@ -19,39 +21,55 @@ function MoviesCard(props) {
 
   function handleLikeClick() {
     // setIsLiked(!isLiked);
-    props.onMovieLike({
-      country: props.movie.country,
-      director: props.movie.director,
-      duration: props.duration,
-      year: props.movie.year,
-      description: props.movie.description,
-      image: props.image,
-      trailerLink: props.trailerLink,
-      nameRU: props.name,
-      nameEN: props.movie.nameEN,
-      // thumbnail: props.thumbnail,
-      thumbnail: props.movie.image.formats.thumbnail.url,
-      movieId: props.movie.id,
-    })
+    onMovieLike(
+      {
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: imageUrl + movie.image.url,
+        trailerLink: movie.trailerLink,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        thumbnail: imageUrl + movie.image.formats.thumbnail.url,
+        movieId: movie.id,
+      }
+    )
   }
 
   function handleDeleteClick() {
-    props.onDelete(props.movie);
+    onDelete(movie);
   }
 
   function handleClick() {
-    window.open(props.trailerLink, '_blank');
+    window.open(movie.trailerLink, '_blank');
   }
 
+  function formatImageUrl(image) {
+    if (typeof image === 'string') {
+      return image;
+    };
+
+    return imageUrl + image.url;
+  }
+
+  // function formatThumbnailUrl(thumbnail) {
+  //   if (typeof thumbnail === 'string'){
+  //       return thumbnail;
+  //   };
+
+  //   return movie.image.formats.thumbnail.url;
+  // }
 
   return (
     <li className='movie-card'>
-      <img className='movie-card__img' alt={`Постер к фильму ${props.name}`}
-        src={props.image}
+      <img className='movie-card__img' alt={`Постер к фильму ${movie.nameRU}`}
+        src={formatImageUrl(movie.image)}
         title='Кликните, чтоб посмотреть трейлер'
         onClick={handleClick}></img>
       <div className='movie-card__description'>
-        <h2 className='movie-card__title'>{props.name}</h2>
+        <h2 className='movie-card__title'>{movie.nameRU}</h2>
         <Route path='/movies'>
           <button
             type='button'

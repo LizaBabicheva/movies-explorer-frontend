@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 import './Profile.css';
-import useForm from '../../utils/useForm';
+import useForm from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile({ onSignout, onProfileChange }) {

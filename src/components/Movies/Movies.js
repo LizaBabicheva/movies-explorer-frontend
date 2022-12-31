@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -13,18 +13,20 @@ function Movies(props) {
     <section className="movies">
       <SearchForm
         onSearch={props.onSearch}
+        isChecked={props.isChecked}
+        onCheckbox={props.onCheckbox}
       />
-
 
       {props.moviesIsLoading
         ? <Preloader />
-        : <>
+        : <> 
           <MoviesCardList
             onMovieLike={props.onMovieLike}
             moviesList={props.moviesList}
             shownListSize={props.shownListSize}
             onDelete={props.onDelete}
-            isLiked={props.isLiked} />
+            isLiked={props.isLiked}
+            isChecked={props.isChecked} />
 
           <Route path='/movies'>
             <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>

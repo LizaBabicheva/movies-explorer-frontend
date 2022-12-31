@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import './App.css';
@@ -33,44 +33,9 @@ function App() {
   const history = useHistory();
 
 
-
-  //Токен, удалить при переходе на куки
-  // useEffect(() => {
-  //   tokenCheck()
-  // }, [])
-
-  // useEffect(() => {
-  //   console.log("logged in value:" + loggedIn);
-  // }, [loggedIn])
-
-  // function tokenCheck() {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     auth.getToken(token)
-  //       .then((res) => {
-  //         if (res) {
-  //           // setEmail(res.data.email);
-  //           setLoggedIn(true);
-  //           // history.push('/');
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       })
-  //   }
-  // }
-
-  // function handleSignOut() {
-  //   localStorage.removeItem('token');
-  //   debugger;
-  //   setLoggedIn(false);
-  //   history.push('/signin');
-  // }
-  //
-
+  //юзер
   useEffect(() => {
     loginCheck();
-    // setIsLoading(false);
   }, [])
 
   useEffect((userData) => {
@@ -160,25 +125,7 @@ function App() {
   }
 
 
-
-
-  // useEffect((initialMoviesData) => {
-  // if (loggedIn) {
-  // if (moviesList.length === 0) {
-  //   showPreloader()
-  // }
-
-  // function onSearch(initialMoviesData) {
-  //   moviesApi.getInitialMovies(initialMoviesData)
-  //   .then((initialMoviesData) => {
-  //     setMoviesList(initialMoviesData)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
-
-
+  //Фильмы
   function handleMoviesSearch(searchQuery) {
     setMoviesIsLoading(true);
     moviesApi.getInitialMovies()
@@ -192,17 +139,32 @@ function App() {
         setMoviesIsLoading(false);
       })
   }
+  
+  //   return (
+  //     <div>
+  //       {/* The checkbox input */}
+  //       <input type="checkbox" checked={checked} onChange={handleChange} />
+  //       Only show fruits
+  //       {/* Render the filtered items */}
+  //       {filteredItems.map(item => (
+  //         <div key={item.name}>{item.name}</div>
+  //       ))}
+  //     </div>
+  //   );
+  // };
+  const [isChecked, setIsChecked] = useState(false);
+  
+  function handleCheckbox() {
+    setIsChecked(!isChecked);
+  }
+  
+// useEffect(() => {
+//     if (isChecked === true) {
+//       return moviesList.filter(movie => movie.duration <= 100);
+//     }
+//     return moviesList;
+// }, [isChecked])
 
-
-  // useEffect(() => {
-  //   moviesApi.getInitialMovies()
-  //     .then((initialMoviesData) => {
-  //       setMoviesList(initialMoviesData)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }, [loggedIn])
 
   useEffect(() => {
     mainApi.getSavedMovies()
@@ -226,10 +188,7 @@ function App() {
   // }, [savedMoviesList]);
 
 
-
-
-
-
+   
   function handleMovieSave(movie) {
     mainApi.addNewMovie(movie)
       .then((newMovie) => {
@@ -336,17 +295,22 @@ function App() {
                 onMovieLike={handleMovieSave}
                 onSearch={handleMoviesSearch}
                 isLiked={isLiked}
-                moviesIsLoading={moviesIsLoading}>
+                moviesIsLoading={moviesIsLoading}
+                isChecked={isChecked}
+                onCheckbox={handleCheckbox}
+                >
               </ProtectedRoute>
 
               <ProtectedRoute
                 component={SavedMovies}
-                path='/saved-movies'
+                path='/saved-movies'x
                 loggedIn={loggedIn}
                 moviesList={savedMoviesList}
                 shownListSize={shownListSize}
                 onLoadMore={onLoadMore}
-                onDelete={handleMovieDelete}>
+                onDelete={handleMovieDelete}
+                isChecked={isChecked}
+                onCheckbox={handleCheckbox}>
               </ProtectedRoute>
 
               <ProtectedRoute

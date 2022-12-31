@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.svg';
-import useForm from '../../utils/useForm';
+import useForm from '../../hooks/useForm';
 
 function Register({ onSignup }) {
 
