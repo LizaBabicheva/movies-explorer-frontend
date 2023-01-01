@@ -1,1 +1,1 @@
-# movies-explorer-frontend
+Макет: https://disk.yandex.ru/d/-_PlPqHiILTObQ
