@@ -9,7 +9,7 @@ function MoviesCardList(props) {
 
   useEffect(() => {
     setShortMoviesList(props.moviesList.filter((movie) =>
-      movie.duration < 40))
+      movie.duration <= 40))
   }, [props.isChecked, props.moviesList])
 
   //

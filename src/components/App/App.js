@@ -133,7 +133,7 @@ function App() {
   }
 
 
-  //Фильмы
+  //Поиск по фильмам
   function handleMoviesSearch(searchQuery) {
     setMoviesIsLoading(true);
     moviesApi.getInitialMovies()
@@ -146,6 +146,14 @@ function App() {
         console.log(err);
         setMoviesIsLoading(false);
       })
+  }
+
+  function handleSavedMoviesSearch(searchQuery) {
+    debugger;
+    setMoviesIsLoading(true);
+    setSavedMoviesList(savedMoviesList
+      .filter(movie => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
+    setMoviesIsLoading(false);
   }
   
   const [isChecked, setIsChecked] = useState(false);
@@ -216,32 +224,6 @@ function App() {
         console.log(err);
       })
   }
-
-  // const isLiked = card.likes.some(i => i === currentUser._id);
-  // api.changeLikeApi(card._id, !isLiked)
-  //   .then((newCard) => {
-  //     setCards((state) => state.map((c) => c._id === card._id ? newCard.data : c));
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-
-
-
-
-  // const isLiked = card.likes.some(i => i === currentUser._id);
-  // mainApi.changeLikeApi(card._id, !isLiked)
-  //   mainApi.changeLikeApi(movie._id)
-  //     .then((newCard) => {
-  //       setCards((state) => state.map((c) => c._id === card._id ? newCard.data : c));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
-
-
-
 
   function getInitialSize() {
     return window.screen.width < 680 ? 5 : (window.screen.width < 860 ? 8 : 12)
@@ -317,7 +299,8 @@ function App() {
                 onLoadMore={onLoadMore}
                 onDelete={handleMovieDelete}
                 isChecked={isChecked}
-                onCheckbox={handleCheckbox}>
+                onCheckbox={handleCheckbox}
+                onSearch={handleSavedMoviesSearch}>
               </ProtectedRoute>
 
               <ProtectedRoute
