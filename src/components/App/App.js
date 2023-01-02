@@ -138,15 +138,26 @@ function App() {
     setMoviesIsLoading(true);
     moviesApi.getInitialMovies()
       .then((initialMoviesData) => {
-        // setMoviesList(initialMoviesData);
-        setMoviesList(initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
-        setMoviesIsLoading(false);
+        debugger;
+        //setMoviesList(initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
+        const searchedMoviesData = initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()));
+        setMoviesList(searchedMoviesData);
+        localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
+        localStorage.setItem('searchQuery', searchQuery);
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
         setMoviesIsLoading(false);
       })
   }
+
+  useEffect(() => {
+    debugger;
+    const savedFilteredMovies = JSON.parse(localStorage.getItem('movieSearchResult'));
+    setMoviesList(savedFilteredMovies);
+  }, [loggedIn])
 
   function handleSavedMoviesSearch(searchQuery) {
     debugger;
@@ -160,6 +171,8 @@ function App() {
   
   function handleCheckbox() {
     setIsChecked(!isChecked);
+    debugger;
+    // localStorage.setItem('checkboxState', JSON.stringify(isChecked));
   }
 
 

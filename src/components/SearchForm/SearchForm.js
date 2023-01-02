@@ -11,7 +11,6 @@ function SearchForm({ onSearch, isChecked, onCheckbox }) {
   };
 
   function onSubmitForm(state) {
-    debugger;
     onSearch(state.search.value);
   }
 
