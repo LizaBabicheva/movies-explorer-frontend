@@ -10,7 +10,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Movies from '../Movies/Movies';
-import SavedMovies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth.js';
@@ -54,7 +54,7 @@ function App() {
 
   function isLiked(movie) {
     // return moviesList.length > 0 && savedMoviesList.includes(savedMovie => savedMovie._id === movie.id );
-    return savedMoviesList.some( 
+    return savedMoviesList.some(
       savedMovie => savedMovie.movieId === movie.id
     );
   }
@@ -138,12 +138,10 @@ function App() {
     setMoviesIsLoading(true);
     moviesApi.getInitialMovies()
       .then((initialMoviesData) => {
-        debugger;
-        //setMoviesList(initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
         const searchedMoviesData = initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()));
         setMoviesList(searchedMoviesData);
         localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
-        localStorage.setItem('searchQuery', searchQuery);
+        localStorage.setItem('initialMovieSearchQuery', searchQuery);
       })
       .catch((err) => {
         console.log(err);
@@ -153,27 +151,26 @@ function App() {
       })
   }
 
-  useEffect(() => {
-    debugger;
-    const savedFilteredMovies = JSON.parse(localStorage.getItem('movieSearchResult'));
-    setMoviesList(savedFilteredMovies);
-  }, [loggedIn])
+  // useEffect(() => {
+  //   debugger;
+  //   const savedFilteredMovies = JSON.parse(localStorage.getItem('movieSearchResult'));
+  //   setMoviesList(savedFilteredMovies);
+  // }, [loggedIn])
 
   function handleSavedMoviesSearch(searchQuery) {
-    debugger;
     setMoviesIsLoading(true);
     setSavedMoviesList(savedMoviesList
       .filter(movie => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
+      localStorage.setItem('initialSavedMovieSearchQuery', searchQuery);
     setMoviesIsLoading(false);
   }
-  
-  const [isChecked, setIsChecked] = useState(false);
-  
-  function handleCheckbox() {
-    setIsChecked(!isChecked);
-    debugger;
-    // localStorage.setItem('checkboxState', JSON.stringify(isChecked));
-  }
+
+  // const [isChecked, setIsChecked] = useState(false);
+
+  // function handleCheckbox() {
+  //   setIsChecked(!isChecked);
+  //   // localStorage.setItem('checkboxState', JSON.stringify(isChecked));
+  // }
 
 
   useEffect(() => {
@@ -183,7 +180,7 @@ function App() {
 
         setSavedMovieIdByMovieId(savedMoviesData.movies.reduce(
           (result, movie) => Object.assign(result, { [movie.movieId]: movie._id }), {}));
-        
+
         // setSavedMovieIdByMovieId(
         //   new Map(
         //   savedMoviesData.movies.map(movie => [
@@ -214,7 +211,7 @@ function App() {
   //   }
   // }, [])
 
-   
+
   function handleMovieSave(movie) {
     mainApi.addNewMovie(movie)
       .then((newMovie) => {
@@ -296,23 +293,24 @@ function App() {
                 onSearch={handleMoviesSearch}
                 isLiked={isLiked}
                 moviesIsLoading={moviesIsLoading}
-                isChecked={isChecked}
-                onCheckbox={handleCheckbox}
+                // isChecked={isChecked}
+                // onCheckbox={handleCheckbox}
                 onDelete={handleMovieDelete}
                 savedMovieIdByMovieId={savedMovieIdByMovieId}
-                >
+                setMoviesList={setMoviesList}
+              >
               </ProtectedRoute>
 
               <ProtectedRoute
                 component={SavedMovies}
-                path='/saved-movies'x
+                path='/saved-movies' x
                 loggedIn={loggedIn}
                 moviesList={savedMoviesList}
                 shownListSize={shownListSize}
-                onLoadMore={onLoadMore}
+                // onLoadMore={onLoadMore}
                 onDelete={handleMovieDelete}
-                isChecked={isChecked}
-                onCheckbox={handleCheckbox}
+                // isChecked={isChecked}
+                // onCheckbox={handleCheckbox}
                 onSearch={handleSavedMoviesSearch}>
               </ProtectedRoute>
 

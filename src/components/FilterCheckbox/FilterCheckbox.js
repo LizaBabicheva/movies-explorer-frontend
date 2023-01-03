@@ -1,6 +1,6 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox({ isChecked, onCheckbox }) {
+function FilterCheckbox({ shortMoviesChecked, onCheckbox }) {
 
   function handleCheckbox() {
     onCheckbox();
@@ -13,7 +13,7 @@ function FilterCheckbox({ isChecked, onCheckbox }) {
         id='switch'
         className='filter__input'
         onChange={handleCheckbox}
-        checked={isChecked}>
+        checked={shortMoviesChecked}>
       </input>
       <label htmlFor='switch' className='filter__label'></label>
       <p className='filter__title'>Короткометражки</p>

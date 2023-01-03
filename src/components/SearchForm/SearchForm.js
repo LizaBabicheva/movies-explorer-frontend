@@ -4,10 +4,10 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 import useForm from '../../hooks/useForm';
 
-function SearchForm({ onSearch, isChecked, onCheckbox }) {
+function SearchForm({ onSearch, shortMoviesChecked, onCheckbox, initialQuery }) {
 
   const stateSchema = {
-    search: { value: '', error: '' },
+    search: { value: initialQuery, error: '' },
   };
 
   function onSubmitForm(state) {
@@ -46,7 +46,7 @@ function SearchForm({ onSearch, isChecked, onCheckbox }) {
 
       <FilterCheckbox 
       //
-      isCheked={isChecked}
+      shortMoviesChecked={shortMoviesChecked}
       onCheckbox={onCheckbox}
       //
       />
