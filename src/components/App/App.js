@@ -16,6 +16,7 @@ import mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/auth.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 function App() {
   const headerPathArray = ['/', '/movies', '/saved-movies', '/profile'];
@@ -32,6 +33,17 @@ function App() {
   const [moviesIsLoading, setMoviesIsLoading] = useState(false);
   const history = useHistory();
   const [savedMovieIdByMovieId, setSavedMovieIdByMovieId] = useState({});
+
+  const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
+  const [infoTooltipText, setInfoTooltipText] = useState('');
+
+  function openTooltip() {
+    setInfoTooltipOpen(true);
+  }
+
+  function closeTooltip() {
+    setInfoTooltipOpen(false);
+  }
 
 
   //юзер
@@ -77,17 +89,23 @@ function App() {
   }
 
   function handleSignup({ name, email, password }) {
-    debugger;
     auth.signup(name, email, password)
       .then((res) => {
         if (res) {
           setIsSignup(true);
-          // handleInfoTooltip();
+          openTooltip();
+          setInfoTooltipText('Вы успешно зарегистрировались');
           history.push('/movies');
         }
       })
       .catch((err) => {
+        debugger;
         console.log(err);
+        debugger;
+        if (err === 409) {
+          openTooltip();
+          setInfoTooltipText('Пользователь с таким email уже существует');
+        }
         // handleInfoTooltip();
       })
   }
@@ -139,6 +157,9 @@ function App() {
     moviesApi.getInitialMovies()
       .then((initialMoviesData) => {
         const searchedMoviesData = initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()));
+        // if (searchedMoviesData === 0) {
+        //   return 'Ничего не найдено'
+        // }
         setMoviesList(searchedMoviesData);
         localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
         localStorage.setItem('initialMovieSearchQuery', searchQuery);
@@ -161,7 +182,7 @@ function App() {
     setMoviesIsLoading(true);
     setSavedMoviesList(savedMoviesList
       .filter(movie => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
-      localStorage.setItem('initialSavedMovieSearchQuery', searchQuery);
+    localStorage.setItem('initialSavedMovieSearchQuery', searchQuery);
     setMoviesIsLoading(false);
   }
 
@@ -346,6 +367,13 @@ function App() {
             <Route exact path={footerPathArray}>
               <Footer />
             </Route>
+
+            <InfoTooltip
+              isSignup={isSignup}
+              loggedIn={loggedIn}
+              InfoTooltipText={infoTooltipText}
+              isOpen={infoTooltipOpen}
+              onClose={closeTooltip} />
           </>
         }
       </div>

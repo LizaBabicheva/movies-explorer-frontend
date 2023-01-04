@@ -11,8 +11,9 @@ import filterShortMovies from '../../utils/utils';
 function Movies(props) {
 
   const [movies, setMovies] = useState([]);
-
   const [shortMoviesChecked, setShortMoviesChecked] = useState(false);
+
+  const initialMoviesSearcQuerySaved = localStorage.getItem('initialMovieSearchQuery') ?? '';
 
   function handleCheckbox() {
     localStorage.setItem('shortMoviesCheckboxState', !shortMoviesChecked);
@@ -33,9 +34,6 @@ function Movies(props) {
 
 
   }, [props.loggedIn])
-
-  const initialMoviesSearcQuerySaved = localStorage.getItem('initialMovieSearchQuery') ?? '';
-
 
   return (
     <section className="movies">
