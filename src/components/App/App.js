@@ -99,9 +99,7 @@ function App() {
         }
       })
       .catch((err) => {
-        debugger;
         console.log(err);
-        debugger;
         if (err === 409) {
           openTooltip();
           setInfoTooltipText('Пользователь с таким email уже существует');
@@ -114,7 +112,6 @@ function App() {
     auth.signin(data.email, data.password)
       .then((res) => {
         if (res.message === 'Успешная авторизация') {
-          // if (res.token) { //Удалить когда будут куки
           localStorage.setItem('token', res.token);
           // setEmail(data.email);
           setLoggedIn(true);
@@ -123,6 +120,11 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        debugger;
+        if (err === 401) {
+          openTooltip();
+          setInfoTooltipText('Вы ввели неправильный email или пароль');
+        }
       })
   }
 
