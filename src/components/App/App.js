@@ -33,29 +33,23 @@ function App() {
   const [moviesIsLoading, setMoviesIsLoading] = useState(false);
   const history = useHistory();
   const [savedMovieIdByMovieId, setSavedMovieIdByMovieId] = useState({});
-
   const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [infoTooltipText, setInfoTooltipText] = useState('');
 
-  function openTooltip() {
-    setInfoTooltipOpen(true);
-  }
-
-  function closeTooltip() {
-    setInfoTooltipOpen(false);
-  }
-
-
-  //юзер
   useEffect(() => {
     loginCheck();
   }, [])
+
+  useEffect(() => {
+    if (isSignup && loggedIn) {
+      history.push('/movies')
+    }
+  }, [isSignup, loggedIn, history])
 
   useEffect((userData) => {
     if (loggedIn) {
       mainApi.getUserInfo(userData)
         .then((userInfo) => {
-          // setCurrentUser(userInfo.data);
           setCurrentUser(userInfo);
         })
         .catch((err) => {
@@ -63,13 +57,6 @@ function App() {
         })
     }
   }, [loggedIn])
-
-  function isLiked(movie) {
-    // return moviesList.length > 0 && savedMoviesList.includes(savedMovie => savedMovie._id === movie.id );
-    return savedMoviesList.some(
-      savedMovie => savedMovie.movieId === movie.id
-    );
-  }
 
   function loginCheck() {
     auth.getUserInfo()
@@ -93,6 +80,7 @@ function App() {
       .then((res) => {
         if (res) {
           setIsSignup(true);
+          setLoggedIn(true);
           openTooltip();
           setInfoTooltipText('Вы успешно зарегистрировались');
           history.push('/movies');
@@ -104,7 +92,10 @@ function App() {
           openTooltip();
           setInfoTooltipText('Пользователь с таким email уже существует');
         }
-        // handleInfoTooltip();
+        if (err === 500 || 400) {
+          openTooltip();
+          setInfoTooltipText('Что-то пошло не так, попробуйте еще раз');
+        }
       })
   }
 
@@ -125,6 +116,10 @@ function App() {
           openTooltip();
           setInfoTooltipText('Вы ввели неправильный email или пароль');
         }
+        if (err === 500) {
+          openTooltip();
+          setInfoTooltipText('Что-то пошло не так, попробуйте еще раз');
+        }
       })
   }
 
@@ -135,6 +130,7 @@ function App() {
         // setEmail('');
         setLoggedIn(false);
         history.push('/signin');
+        localStorage.clear();
       })
       .catch((err) => {
         console.log(err);
@@ -146,12 +142,29 @@ function App() {
       .then((userInfo) => {
         // setCurrentUser(userInfo.data);
         setCurrentUser(userInfo.data);
+        openTooltip();
+        setInfoTooltipText('Вы успешно изменили данные');
       })
       .catch((err) => {
         console.log(err);
+        if (err === 409) {
+          openTooltip();
+          setInfoTooltipText('Пользователь с таким email уже существует');
+        }
+        if (err === 400 || 500) {
+          openTooltip();
+          setInfoTooltipText('Что-то пошло не так, попробуйте еще раз');
+        }
       })
   }
 
+  function openTooltip() {
+    setInfoTooltipOpen(true);
+  }
+
+  function closeTooltip() {
+    setInfoTooltipOpen(false);
+  }
 
   //Поиск по фильмам
   function handleMoviesSearch(searchQuery) {
@@ -163,15 +176,23 @@ function App() {
         //   return 'Ничего не найдено'
         // }
         setMoviesList(searchedMoviesData);
-        localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
-        localStorage.setItem('initialMovieSearchQuery', searchQuery);
+        // localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
+        // localStorage.setItem('initialMovieSearchQuery', searchQuery);
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         setMoviesIsLoading(false);
+        localStorage.setItem('initialMovieSearchQuery', searchQuery);
       })
+  }
+
+  function isLiked(movie) {
+    // return moviesList.length > 0 && savedMoviesList.includes(savedMovie => savedMovie._id === movie.id );
+    return savedMoviesList.some(
+      savedMovie => savedMovie.movieId === movie.id
+    );
   }
 
   // useEffect(() => {
