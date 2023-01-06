@@ -4,13 +4,12 @@ import useForm from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile({ onSignout, onProfileChange }) {
-
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
     if (currentUser.name) {
-      processChanges("name", currentUser.name);
-      processChanges("email", currentUser.email);
+      processChanges('name', currentUser.name);
+      processChanges('email', currentUser.email);
     }
   }, [currentUser]);
 

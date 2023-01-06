@@ -3,22 +3,13 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
-import { Route } from 'react-router-dom/cjs/react-router-dom.min';
-// import moviesApi from '../../utils/MoviesApi';
 import filterShortMovies from '../../utils/utils';
 
 
 function Movies(props) {
-
   const [movies, setMovies] = useState([]);
   const [shortMoviesChecked, setShortMoviesChecked] = useState(false);
-
   const initialMoviesSearcQuerySaved = localStorage.getItem('initialMovieSearchQuery') ?? '';
-
-  function handleCheckbox() {
-    localStorage.setItem('shortMoviesCheckboxState', !shortMoviesChecked);
-    setShortMoviesChecked(!shortMoviesChecked);
-  }
 
   useEffect(() => {
     const moviesList = shortMoviesChecked ? filterShortMovies(props.moviesList) : props.moviesList;
@@ -32,12 +23,16 @@ function Movies(props) {
     const shortMoviesCheckedSaved = JSON.parse(localStorage.getItem('shortMoviesCheckboxState'));
     setShortMoviesChecked(shortMoviesCheckedSaved !== null ? shortMoviesCheckedSaved : false);
 
-    // debugger;
     if (savedFilteredMovies.length === 0) {
       const notFoundMessage = localStorage.getItem('notFoundMessage');
       props.setNotFoundMessage(notFoundMessage);
     }
   }, [props.loggedIn])
+
+  function handleCheckbox() {
+    localStorage.setItem('shortMoviesCheckboxState', !shortMoviesChecked);
+    setShortMoviesChecked(!shortMoviesChecked);
+  }
 
   return (
     <section className='movies'>
@@ -63,7 +58,7 @@ function Movies(props) {
               savedMovieIdByMovieId={props.savedMovieIdByMovieId}
             />
 
-            {props.shownListSize !== props.moviesList.length && props.moviesList.length > 0
+            {props.shownListSize < props.moviesList.length && props.moviesList.length > 0
               ? <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>
               : ''}
           </>

@@ -5,7 +5,6 @@ import { useMediaQuery } from 'react-responsive';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Navigation() {
-
   const isMobile = useMediaQuery({ query: `(max-width: 860px)` });
   const [isMobileMenu, setIsMobileMenu] = useState(false);
 
@@ -28,8 +27,7 @@ function Navigation() {
           <button
             className='navigation__button navigation__button_type_close'
             onClick={handleMenuClick}
-            type='button'></button>
-        }
+            type='button'></button>}
       </div>
       {isMobile &&
         <button

@@ -15,12 +15,12 @@ function Header({ loggedIn }) {
       </Link>
 
       <Route exact path='/'>
-        {loggedIn ? <Navigation />
-        
+        {loggedIn
+          ? <Navigation />
           : <nav className='header__menu'>
-          <Link className='header__menu-link' to='/signup'>Регистрация</Link>
-          <Link className='header__menu-link header__menu-link_type_button' to='/signin'>Войти</Link>
-        </nav>}
+            <Link className='header__menu-link' to='/signup'>Регистрация</Link>
+            <Link className='header__menu-link header__menu-link_type_button' to='/signin'>Войти</Link>
+          </nav>}
       </Route>
 
       <Route path={navPathArray}>

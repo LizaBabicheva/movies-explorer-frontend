@@ -13,6 +13,7 @@
   height: 203px;
   width: 100%;
   object-position: center;
+  cursor: pointer;
 }
 
 .movie-card__description {

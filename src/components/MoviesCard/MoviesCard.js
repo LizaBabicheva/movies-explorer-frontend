@@ -1,36 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './MoviesCard.css';
+import { transformDuration, imageUrl } from '../../utils/utils';
 
 function MoviesCard({ movie, onMovieLike, onDelete, isLiked, savedMovieIdByMovieId }) {
-  // const [isLiked, setIsLiked] = useState(false);
-
-  const movieLikeClassName = (
-    `movie-card__like-button ${isLiked ? 'movie-card__like-button_active' : ''}`
-  );
-
-  //
-  //
-
-  const imageUrl = 'https://api.nomoreparties.co/';
-
-  const durationInMinutes = movie.duration;
-  const hours = Math.floor(durationInMinutes / 60);
-  const remainingMinutes = durationInMinutes % 60;
-
-  // function handleLikeClick() {
-  //   setIsLiked(!isLiked)
-  // }
-
-  // function handleLike(liked) {
-  //   setIsLiked(liked)
-  // }
+  const movieLikeClassName = (`movie-card__like-button ${isLiked ? 'movie-card__like-button_active' : ''}`);
 
   function handleLikeClick() {
-    // setIsLiked(!isLiked);
     if (isLiked) {
-      onDelete(savedMovieIdByMovieId[movie.id]); 
+      onDelete(savedMovieIdByMovieId[movie.id]);
     } else {
       onMovieLike(
         {
@@ -62,26 +39,18 @@ function MoviesCard({ movie, onMovieLike, onDelete, isLiked, savedMovieIdByMovie
     if (typeof image === 'string') {
       return image;
     };
-
     return imageUrl + image.url;
   }
-
-  // function formatThumbnailUrl(thumbnail) {
-  //   if (typeof thumbnail === 'string'){
-  //       return thumbnail;
-  //   };
-
-  //   return movie.image.formats.thumbnail.url;
-  // }
 
   return (
     <li className='movie-card'>
       <img className='movie-card__img' alt={`Постер к фильму ${movie.nameRU}`}
         src={formatImageUrl(movie.image)}
-        title='Кликните, чтоб посмотреть трейлер'
+        title='Нажмите, чтобы посмотреть трейлер'
         onClick={handleClick}></img>
       <div className='movie-card__description'>
         <h2 className='movie-card__title'>{movie.nameRU}</h2>
+
         <Route path='/movies'>
           <button
             type='button'
@@ -90,16 +59,17 @@ function MoviesCard({ movie, onMovieLike, onDelete, isLiked, savedMovieIdByMovie
             onClick={handleLikeClick}>
           </button>
         </Route>
+
         <Route path='/saved-movies'>
           <button
             type='button'
             className='movie-card__delete-button'
             aria-label='Удалить'
-            onClick={handleDeleteClick}
-          >
+            onClick={handleDeleteClick}>
           </button>
         </Route>
-        <p className='movie-card__duration'>{`${hours}ч ${remainingMinutes}м`}</p>
+
+        <p className='movie-card__duration'>{transformDuration(movie.duration)}</p>
       </div>
     </li>
   )

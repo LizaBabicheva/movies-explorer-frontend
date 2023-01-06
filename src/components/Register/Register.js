@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.svg';
@@ -6,15 +5,12 @@ import useForm from '../../hooks/useForm';
 
 function Register({ onSignup }) {
 
-  // Define your state schema
   const stateSchema = {
     name: { value: '', error: '' },
     email: { value: '', error: '' },
     password: { value: '', error: '' },
   };
-  // Define your validationStateSchema
-  // Note: validationStateSchema and stateSchema property
-  // should be the same in-order validation works!
+
   const validationStateSchema = {
     name: {
       required: true,
@@ -106,9 +102,7 @@ function Register({ onSignup }) {
         <button
           className={`register__submit ${disable && 'register__submit_disabled'}`}
           type='submit'
-          disabled={disable}
-          // title='Заполните форму'
-          >
+          disabled={disable}>
           Зарегистрироваться
         </button>
       </form >

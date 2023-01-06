@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
-
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList(props) {
 
   return (
-    <div>
-
       <ul className='movies-list'>
         {props.moviesList.map((movie, idx) => (
           idx < props.shownListSize
@@ -22,7 +18,6 @@ function MoviesCardList(props) {
         ))
         }
       </ul>
-    </div>
   )
 }
 
