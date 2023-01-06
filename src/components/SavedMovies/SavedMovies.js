@@ -5,27 +5,26 @@ import SearchForm from '../SearchForm/SearchForm';
 import filterShortMovies from '../../utils/utils';
 
 function SavedMovies(props) {
-
-  const [movies, setMovies] = useState([]); 
+  const [movies, setMovies] = useState([]);
   const [shortMoviesChecked, setShortMoviesChecked] = useState(false);
+
+  useEffect(() => {
+    const moviesList = shortMoviesChecked ? filterShortMovies(props.moviesList) : props.moviesList;
+    setMovies(moviesList);
+    setMovies(moviesList)
+  }, [shortMoviesChecked, props.moviesList])
+
+  useEffect(() => {
+    const shortMoviesCheckedSaved = JSON.parse(localStorage.getItem('savedShortMoviesCheckboxState'));
+    setShortMoviesChecked(shortMoviesCheckedSaved !== null ? shortMoviesCheckedSaved : false);
+  }, [props.loggedIn])
 
   function handleCheckbox() {
     const newValue = !shortMoviesChecked;
     localStorage.setItem('savedShortMoviesCheckboxState', newValue);
     setShortMoviesChecked(newValue);
+    setShortMoviesChecked(!shortMoviesChecked);
   }
-
-  useEffect(() => {
-    const moviesList = shortMoviesChecked ? filterShortMovies(props.moviesList) : props.moviesList;
-    setMovies(moviesList);
-  }, [shortMoviesChecked, props.moviesList])
-
-  useEffect(() => {
-    const shortMoviesCheckedSaved = JSON.parse(localStorage.getItem('savedShortMoviesCheckboxState'));
-    setShortMoviesChecked( shortMoviesCheckedSaved !== null ? shortMoviesCheckedSaved : false);
-  }, [props.loggedIn])
-
-  const initialMoviesSearcQuerySaved = localStorage.getItem('initialSavedMovieSearchQuery') ?? '';
 
   return (
     <section className="movies">
@@ -33,14 +32,11 @@ function SavedMovies(props) {
         onSearch={props.onSearch}
         shortMoviesChecked={shortMoviesChecked}
         onCheckbox={handleCheckbox}
-        initialQuery={initialMoviesSearcQuerySaved}
       />
       <MoviesCardList
         onDelete={props.onDelete}
         moviesList={movies}
         loggedIn={props.loggedIn}
-
-        //?
         shownListSize={props.shownListSize}
       />
     </section>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
@@ -7,7 +6,7 @@ import useForm from '../../hooks/useForm';
 function SearchForm({ onSearch, shortMoviesChecked, onCheckbox, initialQuery }) {
 
   const stateSchema = {
-    search: { value: initialQuery, error: '' },
+    search: { value: '', error: '' },
   };
 
   function onSubmitForm(state) {
@@ -44,11 +43,9 @@ function SearchForm({ onSearch, shortMoviesChecked, onCheckbox, initialQuery }) 
       </form>
       <p className='search__error'>{state.search.error}</p>
 
-      <FilterCheckbox 
-      //
-      shortMoviesChecked={shortMoviesChecked}
-      onCheckbox={onCheckbox}
-      //
+      <FilterCheckbox
+        shortMoviesChecked={shortMoviesChecked}
+        onCheckbox={onCheckbox}
       />
 
     </div>

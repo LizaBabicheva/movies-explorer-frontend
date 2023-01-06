@@ -212,7 +212,6 @@ function App() {
     setMoviesIsLoading(true);
     setSavedMoviesList(savedMoviesList
       .filter(movie => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
-    localStorage.setItem('initialSavedMovieSearchQuery', searchQuery);
     setMoviesIsLoading(false);
   }
 
