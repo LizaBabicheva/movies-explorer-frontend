@@ -30,7 +30,7 @@ function Movies(props) {
     props.setMoviesList(savedFilteredMovies);
 
     const shortMoviesCheckedSaved = JSON.parse(localStorage.getItem('shortMoviesCheckboxState'));
-    setShortMoviesChecked( shortMoviesCheckedSaved !== null ? shortMoviesCheckedSaved : false);
+    setShortMoviesChecked(shortMoviesCheckedSaved !== null ? shortMoviesCheckedSaved : false);
 
 
   }, [props.loggedIn])
@@ -41,13 +41,12 @@ function Movies(props) {
         onSearch={props.onSearch}
         shortMoviesChecked={shortMoviesChecked}
         initialQuery={initialMoviesSearcQuerySaved}
-        // onCheckbox={props.onCheckbox}
         onCheckbox={handleCheckbox}
       />
 
       {props.moviesIsLoading
         ? <Preloader />
-        : <>
+        : <div>
           <MoviesCardList
             onMovieLike={props.onMovieLike}
             moviesList={movies}
@@ -55,13 +54,13 @@ function Movies(props) {
             onDelete={props.onDelete}
             isLiked={props.isLiked}
             savedMovieIdByMovieId={props.savedMovieIdByMovieId}
-            // shortMoviesChecked={shortMoviesChecked}
-             />
+          />
 
-          <Route path='/movies'>
-            <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>
-          </Route>
-        </>
+          {props.shownListSize !== props.moviesList.length && props.moviesList.length > 0
+            ? <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>
+            : ''
+          }
+        </div>
       }
     </section>
   )

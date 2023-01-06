@@ -35,6 +35,10 @@ function App() {
   const [savedMovieIdByMovieId, setSavedMovieIdByMovieId] = useState({});
   const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [infoTooltipText, setInfoTooltipText] = useState('');
+//
+  const [isEmptyMovieList, setIsEmptyMovieList] = useState(false);
+  const [movieListMessage, setMovieListMessage] = useState('');
+//
 
   useEffect(() => {
     loginCheck();
@@ -137,6 +141,8 @@ function App() {
       })
   }
 
+
+
   function handleProfileChange(userData) {
     mainApi.updateUserInfo(userData)
       .then((userInfo) => {
@@ -176,7 +182,7 @@ function App() {
         //   return 'Ничего не найдено'
         // }
         setMoviesList(searchedMoviesData);
-        // localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
+        localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
         // localStorage.setItem('initialMovieSearchQuery', searchQuery);
       })
       .catch((err) => {
@@ -284,7 +290,7 @@ function App() {
   }
 
   function getLoadMoreSize() {
-    return window.screen.width < 680 ? 1 : (window.screen.width < 860 ? 2 : 3)
+    return window.screen.width < 680 ? 2 : (window.screen.width < 860 ? 2 : 3)
   }
 
   function handleResize() {
