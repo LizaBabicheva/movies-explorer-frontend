@@ -32,11 +32,15 @@ function Movies(props) {
     const shortMoviesCheckedSaved = JSON.parse(localStorage.getItem('shortMoviesCheckboxState'));
     setShortMoviesChecked(shortMoviesCheckedSaved !== null ? shortMoviesCheckedSaved : false);
 
-
+    // debugger;
+    if (savedFilteredMovies.length === 0) {
+      const notFoundMessage = localStorage.getItem('notFoundMessage');
+      props.setNotFoundMessage(notFoundMessage);
+    }
   }, [props.loggedIn])
 
   return (
-    <section className="movies">
+    <section className='movies'>
       <SearchForm
         onSearch={props.onSearch}
         shortMoviesChecked={shortMoviesChecked}
@@ -46,21 +50,23 @@ function Movies(props) {
 
       {props.moviesIsLoading
         ? <Preloader />
-        : <div>
-          <MoviesCardList
-            onMovieLike={props.onMovieLike}
-            moviesList={movies}
-            shownListSize={props.shownListSize}
-            onDelete={props.onDelete}
-            isLiked={props.isLiked}
-            savedMovieIdByMovieId={props.savedMovieIdByMovieId}
-          />
+        : props.moviesList.length === 0
+          ? <p className='movies__not-found-message'>{props.notFoundMessage}</p>
+          : <>
 
-          {props.shownListSize !== props.moviesList.length && props.moviesList.length > 0
-            ? <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>
-            : ''
-          }
-        </div>
+            <MoviesCardList
+              onMovieLike={props.onMovieLike}
+              moviesList={movies}
+              shownListSize={props.shownListSize}
+              onDelete={props.onDelete}
+              isLiked={props.isLiked}
+              savedMovieIdByMovieId={props.savedMovieIdByMovieId}
+            />
+
+            {props.shownListSize !== props.moviesList.length && props.moviesList.length > 0
+              ? <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>
+              : ''}
+          </>
       }
     </section>
   )

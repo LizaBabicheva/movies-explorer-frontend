@@ -36,8 +36,7 @@ function App() {
   const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [infoTooltipText, setInfoTooltipText] = useState('');
 //
-  const [isEmptyMovieList, setIsEmptyMovieList] = useState(false);
-  const [movieListMessage, setMovieListMessage] = useState('');
+  const [notFoundMessage, setNotFoundMessage] = useState('');
 //
 
   useEffect(() => {
@@ -178,19 +177,21 @@ function App() {
     moviesApi.getInitialMovies()
       .then((initialMoviesData) => {
         const searchedMoviesData = initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()));
-        // if (searchedMoviesData === 0) {
-        //   return 'Ничего не найдено'
-        // }
         setMoviesList(searchedMoviesData);
         localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
-        // localStorage.setItem('initialMovieSearchQuery', searchQuery);
+        if (searchedMoviesData.length === 0) {
+          const message = 'Ничего не найдено';
+          localStorage.setItem('notFoundMessage', message);
+          setNotFoundMessage(message);
+        }
       })
       .catch((err) => {
         console.log(err);
+        setNotFoundMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
       })
       .finally(() => {
-        setMoviesIsLoading(false);
         localStorage.setItem('initialMovieSearchQuery', searchQuery);
+        setMoviesIsLoading(false);
       })
   }
 
@@ -348,12 +349,14 @@ function App() {
                 onDelete={handleMovieDelete}
                 savedMovieIdByMovieId={savedMovieIdByMovieId}
                 setMoviesList={setMoviesList}
+                notFoundMessage={notFoundMessage}
+                setNotFoundMessage={setNotFoundMessage}
               >
               </ProtectedRoute>
 
               <ProtectedRoute
                 component={SavedMovies}
-                path='/saved-movies' x
+                path='/saved-movies'
                 loggedIn={loggedIn}
                 moviesList={savedMoviesList}
                 shownListSize={shownListSize}
