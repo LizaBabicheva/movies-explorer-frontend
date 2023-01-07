@@ -85,16 +85,16 @@ class MainApi {
       })
   }
 
-      changeLikeApi(id, like) {
-        return fetch(this._baseUrl + `/cards/${id}/likes`, {
-          method: like ? 'PUT' : 'DELETE',
-          credentials: 'include',
-          headers: this._headers
-        })
-          .then((res) => {
-            return this._getResponseData(res);
-          })
-      }
+      // changeLikeApi(id, like) {
+      //   return fetch(this._baseUrl + `/cards/${id}/likes`, {
+      //     method: like ? 'PUT' : 'DELETE',
+      //     credentials: 'include',
+      //     headers: this._headers
+      //   })
+      //     .then((res) => {
+      //       return this._getResponseData(res);
+      //     })
+      // }
 
   deleteMovieApi(id) {
         //

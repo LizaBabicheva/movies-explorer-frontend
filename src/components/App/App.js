@@ -64,11 +64,8 @@ function App() {
   function loginCheck() {
     auth.getUserInfo()
       .then((res) => {
-        // if (res.data._id) {
         if (res._id) {
-          // setEmail(res.data.email);
           setLoggedIn(true);
-          // history.push('/movies');
         }
         setIsLoading(false);
       })
@@ -83,9 +80,13 @@ function App() {
       .then((res) => {
         if (res) {
           setIsSignup(true);
-          setLoggedIn(true);
           openTooltip();
           setInfoTooltipText('Вы успешно зарегистрировались');
+          debugger;
+          handleLogin({
+            email: email,
+            password: password
+          })
           history.push('/movies');
         }
       })
@@ -106,8 +107,7 @@ function App() {
     auth.signin(data.email, data.password)
       .then((res) => {
         if (res.message === 'Успешная авторизация') {
-          localStorage.setItem('token', res.token);
-          // setEmail(data.email);
+          // localStorage.setItem('token', res.token);
           setLoggedIn(true);
           history.push('/movies');
         }
@@ -129,8 +129,6 @@ function App() {
   function handleSignOut() {
     auth.signout()
       .then(() => {
-        debugger;
-        // setEmail('');
         setLoggedIn(false);
         history.push('/signin');
         localStorage.clear();
@@ -145,7 +143,6 @@ function App() {
   function handleProfileChange(userData) {
     mainApi.updateUserInfo(userData)
       .then((userInfo) => {
-        // setCurrentUser(userInfo.data);
         setCurrentUser(userInfo.data);
         openTooltip();
         setInfoTooltipText('Вы успешно изменили данные');
@@ -202,26 +199,12 @@ function App() {
     );
   }
 
-  // useEffect(() => {
-  //   debugger;
-  //   const savedFilteredMovies = JSON.parse(localStorage.getItem('movieSearchResult'));
-  //   setMoviesList(savedFilteredMovies);
-  // }, [loggedIn])
-
   function handleSavedMoviesSearch(searchQuery) {
     setMoviesIsLoading(true);
     setSavedMoviesList(savedMoviesList
       .filter(movie => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
     setMoviesIsLoading(false);
   }
-
-  // const [isChecked, setIsChecked] = useState(false);
-
-  // function handleCheckbox() {
-  //   setIsChecked(!isChecked);
-  //   // localStorage.setItem('checkboxState', JSON.stringify(isChecked));
-  // }
-
 
   useEffect(() => {
     mainApi.getSavedMovies()
