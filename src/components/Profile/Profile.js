@@ -2,6 +2,7 @@ import { useEffect, useContext } from 'react';
 import './Profile.css';
 import useForm from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { nameValidationSchema, emailValidationSchema } from '../../utils/utils';
 
 function Profile({ onSignout, onProfileChange }) {
   const currentUser = useContext(CurrentUserContext);
@@ -19,21 +20,8 @@ function Profile({ onSignout, onProfileChange }) {
   };
 
   const validationStateSchema = {
-    name: {
-      required: true,
-      validator: {
-        regEx: /^[a-zA-Zа-яА-Я\- ]+$/,
-        error: 'Поле может содержать только латиницу, кириллицу, пробел или дефис',
-      },
-    },
-    email: {
-      required: true,
-      validator: {
-        regEx: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/,
-        error: 'Поле должно соответствовать шаблону электронной почты',
-      },
-    },
-  };
+    name: nameValidationSchema, email: emailValidationSchema
+  }
 
   function onSubmitForm(state) {
     onProfileChange({

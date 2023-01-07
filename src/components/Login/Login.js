@@ -1,8 +1,8 @@
-// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
 import logo from '../../images/logo.svg';
 import useForm from '../../hooks/useForm';
+import { emailValidationSchema, passwordValidationSchema } from '../../utils/utils';
 
 function Login({ onLogin }) {
 
@@ -12,20 +12,7 @@ function Login({ onLogin }) {
   };
 
   const validationStateSchema = {
-    email: {
-      required: true,
-      validator: {
-        regEx: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/,
-        error: 'Поле должно соответствовать шаблону электронной почты',
-      },
-    },
-    password: {
-      required: true,
-      validator: {
-        regEx: /^[^\sА-Яа-я]+$/,
-        error: 'Пароль может содержать только символы, цифры и латинские буквы.',
-      },
-    },
+    email: emailValidationSchema, password: passwordValidationSchema
   };
 
   function onSubmitForm(state) {

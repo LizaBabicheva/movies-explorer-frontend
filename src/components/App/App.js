@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import './App.css';
@@ -21,6 +21,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 function App() {
   const headerPathArray = ['/', '/movies', '/saved-movies', '/profile'];
   const footerPathArray = ['/', '/movies', '/saved-movies'];
+  const history = useHistory();
   const [moviesList, setMoviesList] = useState([]);
   const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [shownListSize, setShownListSize] = useState(0);
@@ -29,15 +30,11 @@ function App() {
   const [isSignup, setIsSignup] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  // const [isLiked, setIsLiked] = useState(false);
   const [moviesIsLoading, setMoviesIsLoading] = useState(false);
-  const history = useHistory();
   const [savedMovieIdByMovieId, setSavedMovieIdByMovieId] = useState({});
   const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [infoTooltipText, setInfoTooltipText] = useState('');
-//
   const [notFoundMessage, setNotFoundMessage] = useState('');
-//
 
   useEffect(() => {
     loginCheck();
@@ -61,6 +58,30 @@ function App() {
     }
   }, [loggedIn])
 
+  useEffect(() => {
+    mainApi.getSavedMovies()
+      .then((savedMoviesData) => {
+        setSavedMoviesList(savedMoviesData.movies);
+        setSavedMovieIdByMovieId(savedMoviesData.movies.reduce(
+          (result, movie) => Object.assign(result, { [movie.movieId]: movie._id }), {}));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [loggedIn])
+
+  useEffect(() => {
+    handleResize();
+  }, [pageCount])
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   function loginCheck() {
     auth.getUserInfo()
       .then((res) => {
@@ -82,7 +103,6 @@ function App() {
           setIsSignup(true);
           openTooltip();
           setInfoTooltipText('Вы успешно зарегистрировались');
-          debugger;
           handleLogin({
             email: email,
             password: password
@@ -96,7 +116,11 @@ function App() {
           openTooltip();
           setInfoTooltipText('Пользователь с таким email уже существует');
         }
-        if (err === 500 || 400) {
+        if (err === 400) {
+          openTooltip();
+          setInfoTooltipText('Проверьте корректность введенных данных');
+        }
+        if (err === 500) {
           openTooltip();
           setInfoTooltipText('Что-то пошло не так, попробуйте еще раз');
         }
@@ -107,7 +131,6 @@ function App() {
     auth.signin(data.email, data.password)
       .then((res) => {
         if (res.message === 'Успешная авторизация') {
-          // localStorage.setItem('token', res.token);
           setLoggedIn(true);
           history.push('/movies');
         }
@@ -138,8 +161,6 @@ function App() {
       })
   }
 
-
-
   function handleProfileChange(userData) {
     mainApi.updateUserInfo(userData)
       .then((userInfo) => {
@@ -153,7 +174,11 @@ function App() {
           openTooltip();
           setInfoTooltipText('Пользователь с таким email уже существует');
         }
-        if (err === 400 || 500) {
+        if (err === 400) {
+          openTooltip();
+          setInfoTooltipText('Проверьте корректность введенных данных');
+        }
+        if (err === 500) {
           openTooltip();
           setInfoTooltipText('Что-то пошло не так, попробуйте еще раз');
         }
@@ -168,7 +193,6 @@ function App() {
     setInfoTooltipOpen(false);
   }
 
-  //Поиск по фильмам
   function handleMoviesSearch(searchQuery) {
     setMoviesIsLoading(true);
     moviesApi.getInitialMovies()
@@ -193,7 +217,6 @@ function App() {
   }
 
   function isLiked(movie) {
-    // return moviesList.length > 0 && savedMoviesList.includes(savedMovie => savedMovie._id === movie.id );
     return savedMoviesList.some(
       savedMovie => savedMovie.movieId === movie.id
     );
@@ -206,57 +229,15 @@ function App() {
     setMoviesIsLoading(false);
   }
 
-  useEffect(() => {
-    mainApi.getSavedMovies()
-      .then((savedMoviesData) => {
-        setSavedMoviesList(savedMoviesData.movies);
-
-        setSavedMovieIdByMovieId(savedMoviesData.movies.reduce(
-          (result, movie) => Object.assign(result, { [movie.movieId]: movie._id }), {}));
-
-        // setSavedMovieIdByMovieId(
-        //   new Map(
-        //   savedMoviesData.movies.map(movie => [
-        //   movie.movieId, movie._id
-        // ])));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, [loggedIn])
-
-
-  // useEffect(() => {
-  //   debugger;
-  //   savedMoviesList.forEach(savedMovie => moviesList.forEach(movie => {
-  //     debugger;
-  //     if (movie.id === savedMovie.movieId) {
-  //       movie.setIsLiked(true);
-  //     }
-  //   }));
-  // }, [savedMoviesList]);
-
-
-  // useEffect(() => {
-  //   debugger;
-  //   if (moviesList.length > 0 && moviesList.includes(movie => movie.id === savedMoviesList.map(item => item.movieId))) {
-  //     setIsLiked(true);
-  //   }
-  // }, [])
-
-
   function handleMovieSave(movie) {
     mainApi.addNewMovie(movie)
       .then((newMovie) => {
-        // setSavedMoviesList([newMovie.movie, ...savedMoviesList.movies]);
-        // moviesList((state) => state.map((m) => m.id === movie.movieId ? newMovie.movie : m));
         setSavedMoviesList([newMovie.movie, ...savedMoviesList]);
       })
       .catch((err) => {
         console.log(err);
       })
   }
-
 
   function handleMovieDelete(movieId) {
     mainApi.deleteMovieApi(movieId)
@@ -286,18 +267,6 @@ function App() {
     setPageCount(pageCount + 1);
   }
 
-  useEffect(() => {
-    handleResize();
-  }, [pageCount])
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -326,14 +295,11 @@ function App() {
                 onSearch={handleMoviesSearch}
                 isLiked={isLiked}
                 moviesIsLoading={moviesIsLoading}
-                // isChecked={isChecked}
-                // onCheckbox={handleCheckbox}
                 onDelete={handleMovieDelete}
                 savedMovieIdByMovieId={savedMovieIdByMovieId}
                 setMoviesList={setMoviesList}
                 notFoundMessage={notFoundMessage}
-                setNotFoundMessage={setNotFoundMessage}
-              >
+                setNotFoundMessage={setNotFoundMessage}>
               </ProtectedRoute>
 
               <ProtectedRoute
@@ -342,10 +308,7 @@ function App() {
                 loggedIn={loggedIn}
                 moviesList={savedMoviesList}
                 shownListSize={shownListSize}
-                // onLoadMore={onLoadMore}
                 onDelete={handleMovieDelete}
-                // isChecked={isChecked}
-                // onCheckbox={handleCheckbox}
                 onSearch={handleSavedMoviesSearch}>
               </ProtectedRoute>
 
@@ -353,7 +316,6 @@ function App() {
                 component={Profile}
                 path='/profile'
                 loggedIn={loggedIn}
-                // currentUser={currentUser}
                 onSignout={handleSignOut}
                 onProfileChange={handleProfileChange}>
               </ProtectedRoute>

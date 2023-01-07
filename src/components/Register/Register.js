@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.svg';
 import useForm from '../../hooks/useForm';
+import { emailValidationSchema, nameValidationSchema, passwordValidationSchema } from '../../utils/utils';
 
 function Register({ onSignup }) {
 
@@ -12,27 +13,9 @@ function Register({ onSignup }) {
   };
 
   const validationStateSchema = {
-    name: {
-      required: true,
-      validator: {
-        regEx: /^[a-zA-Zа-яА-Я\- ]+$/,
-        error: 'Поле может содержать только латиницу, кириллицу, пробел или дефис',
-      },
-    },
-    email: {
-      required: true,
-      validator: {
-        regEx: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/,
-        error: 'Поле должно соответствовать шаблону электронной почты',
-      },
-    },
-    password: {
-      required: true,
-      validator: {
-        regEx: /^[^\sА-Яа-я]+$/,
-        error: 'Пароль может содержать только символы, цифры и латинские буквы.',
-      },
-    },
+    name: nameValidationSchema,
+    email: emailValidationSchema,
+    password: passwordValidationSchema
   };
 
   function onSubmitForm(state) {
