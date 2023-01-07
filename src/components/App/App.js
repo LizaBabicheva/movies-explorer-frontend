@@ -18,6 +18,9 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
+import { filterMovies } from '../../utils/utils';
+
+
 function App() {
   const headerPathArray = ['/', '/movies', '/saved-movies', '/profile'];
   const footerPathArray = ['/', '/movies', '/saved-movies'];
@@ -82,6 +85,15 @@ function App() {
     };
   }, []);
 
+  function openTooltip() {
+    setInfoTooltipOpen(true);
+    setTimeout(() => { setInfoTooltipOpen(false) }, 5000)
+  }
+
+  function closeTooltip() {
+    setInfoTooltipOpen(false);
+  }
+
   function loginCheck() {
     auth.getUserInfo()
       .then((res) => {
@@ -114,7 +126,7 @@ function App() {
         console.log(err);
         if (err === 409) {
           openTooltip();
-          setInfoTooltipText('Пользователь с таким email уже существует');
+          setInfoTooltipText(err.message);
         }
         if (err === 400) {
           openTooltip();
@@ -137,7 +149,6 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        debugger;
         if (err === 401) {
           openTooltip();
           setInfoTooltipText('Вы ввели неправильный email или пароль');
@@ -185,19 +196,11 @@ function App() {
       })
   }
 
-  function openTooltip() {
-    setInfoTooltipOpen(true);
-  }
-
-  function closeTooltip() {
-    setInfoTooltipOpen(false);
-  }
-
   function handleMoviesSearch(searchQuery) {
     setMoviesIsLoading(true);
     moviesApi.getInitialMovies()
       .then((initialMoviesData) => {
-        const searchedMoviesData = initialMoviesData.filter(item => item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()));
+        const searchedMoviesData = filterMovies(initialMoviesData, searchQuery);
         setMoviesList(searchedMoviesData);
         localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
         if (searchedMoviesData.length === 0) {
@@ -224,8 +227,8 @@ function App() {
 
   function handleSavedMoviesSearch(searchQuery) {
     setMoviesIsLoading(true);
-    setSavedMoviesList(savedMoviesList
-      .filter(movie => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())));
+    const searchedMoviesData = filterMovies(savedMoviesList, searchQuery);
+    setSavedMoviesList(searchedMoviesData);
     setMoviesIsLoading(false);
   }
 
@@ -282,7 +285,6 @@ function App() {
               <Route exact path='/'>
                 <Main />
               </Route>
-
 
               <ProtectedRoute
                 component={Movies}

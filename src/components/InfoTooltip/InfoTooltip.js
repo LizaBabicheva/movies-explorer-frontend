@@ -5,7 +5,7 @@ function InfoTooltip(props) {
   return (
     <div className={`info-tooltip ${props.isOpen && 'info-tooltip_opened'}`}>
       <div className='info-tooltip__container'>
-        <h3 className='info-tooltip__heading'>
+        <h3 className='info-tooltip__text'>
           {props.InfoTooltipText}
         </h3>
       <button className='info-tooltip__close-button' type='button' aria-label='Закрыть'

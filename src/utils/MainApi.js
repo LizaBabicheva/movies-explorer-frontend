@@ -12,9 +12,6 @@ class MainApi {
   }
 
   getUserInfo() {
-    //
-    // this._headers['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-    //
     return fetch(this._baseUrl + '/users/me', {
       method: 'GET',
       credentials: 'include',

@@ -56,10 +56,15 @@ const passwordValidationSchema = {
   ]
 };
 
+function filterMovies(movies, searchQuery) {
+  return movies.filter(movie => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()));
+}
+
 export {
   imageUrl,
   transformDuration,
   nameValidationSchema,
   emailValidationSchema,
-  passwordValidationSchema
+  passwordValidationSchema,
+  filterMovies
 };
