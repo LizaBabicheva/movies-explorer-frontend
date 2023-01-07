@@ -53,16 +53,3 @@ export const signout = () => {
   })
     .then(getResponseData)
 }
-
-//Удалить потом
-// export const getToken = (token) => {
-//   return fetch(`${BASE_URL}/users/me`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${token}`,
-//     }
-//   })
-//     .then(getResponseData)
-// }
-//

@@ -23,9 +23,6 @@ class MainApi {
   }
 
   updateUserInfo(data) {
-        //
-        // this._headers['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-        //
     return fetch(this._baseUrl + '/users/me', {
       method: 'PATCH',
       credentials: 'include',
@@ -41,9 +38,6 @@ class MainApi {
   }
 
   getSavedMovies() {
-        //
-        // this._headers['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-        //
     return fetch(this._baseUrl + '/movies', {
       method: 'GET',
       credentials: 'include',
@@ -55,9 +49,6 @@ class MainApi {
   }
 
   addNewMovie(data) {
-        //
-        // this._headers['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-        //
     return fetch(this._baseUrl + '/movies', {
       method: 'POST',
       credentials: 'include',
@@ -82,21 +73,7 @@ class MainApi {
       })
   }
 
-      // changeLikeApi(id, like) {
-      //   return fetch(this._baseUrl + `/cards/${id}/likes`, {
-      //     method: like ? 'PUT' : 'DELETE',
-      //     credentials: 'include',
-      //     headers: this._headers
-      //   })
-      //     .then((res) => {
-      //       return this._getResponseData(res);
-      //     })
-      // }
-
   deleteMovieApi(id) {
-        //
-        // this._headers['Authorization'] = 'Bearer ' + localStorage.getItem('token');
-        //
     return fetch(this._baseUrl + `/movies/${id}`, {
       method: 'DELETE',
       credentials: 'include',

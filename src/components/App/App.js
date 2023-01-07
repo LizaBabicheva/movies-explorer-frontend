@@ -126,7 +126,7 @@ function App() {
         console.log(err);
         if (err === 409) {
           openTooltip();
-          setInfoTooltipText(err.message);
+          setInfoTooltipText('Пользователь с таким email уже существует');
         }
         if (err === 400) {
           openTooltip();
@@ -253,11 +253,11 @@ function App() {
   }
 
   function getInitialSize() {
-    return window.screen.width < 680 ? 5 : (window.screen.width < 860 ? 8 : 12)
+    return window.screen.width < 480 ? 5 : (window.screen.width < 768 ? 8 : 12)
   }
 
   function getLoadMoreSize() {
-    return window.screen.width < 680 ? 2 : (window.screen.width < 860 ? 2 : 3)
+    return window.screen.width < 480 ? 2 : (window.screen.width < 768 ? 2 : 3)
   }
 
   function handleResize() {

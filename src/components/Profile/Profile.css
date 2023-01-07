@@ -55,6 +55,7 @@
   color: black;
   text-align: right;
   background-color: transparent;
+  width: 70%;
 }
 
 .profile__input:focus {
@@ -82,7 +83,6 @@
   margin: 185px auto 0;
   display: flex;
   flex-direction: column;
-  /* gap: 16px; */
 }
 
 .profile__button {
