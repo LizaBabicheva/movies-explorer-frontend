@@ -1,19 +1,19 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList(props) {
+function MoviesCardList({ moviesList, shownListSize, onMovieLike, savedMovieIdByMovieId, onDelete, isLiked }) {
 
   return (
       <ul className='movies-list'>
-        {props.moviesList.map((movie, idx) => (
-          idx < props.shownListSize
+        {moviesList.map((movie, idx) => (
+          idx < shownListSize
             ? <MoviesCard
-              onMovieLike={props.onMovieLike}
+              onMovieLike={onMovieLike}
               movie={movie}
               key={movie.id || movie._id}
-              savedMovieIdByMovieId={props.savedMovieIdByMovieId}
-              onDelete={props.onDelete}
-              isLiked={props.isLiked && props.isLiked(movie)} />
+              savedMovieIdByMovieId={savedMovieIdByMovieId}
+              onDelete={onDelete}
+              isLiked={isLiked && isLiked(movie)} />
             : ''
         ))
         }

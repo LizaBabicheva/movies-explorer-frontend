@@ -164,7 +164,7 @@ function App() {
     auth.signout()
       .then(() => {
         setLoggedIn(false);
-        history.push('/signin');
+        history.push('/');
         localStorage.clear();
       })
       .catch((err) => {

@@ -6,28 +6,28 @@ import Preloader from '../Preloader/Preloader';
 import filterShortMovies from '../../utils/utils';
 
 
-function Movies(props) {
+function Movies({ moviesList, setMoviesList, setNotFoundMessage, notFoundMessage, loggedIn, onSearch, moviesIsLoading, onMovieLike, shownListSize, onDelete, isLiked, savedMovieIdByMovieId, onLoadMore }) {
   const [movies, setMovies] = useState([]);
   const [shortMoviesChecked, setShortMoviesChecked] = useState(false);
   const initialMoviesSearcQuerySaved = localStorage.getItem('initialMovieSearchQuery') ?? '';
 
   useEffect(() => {
-    const moviesList = shortMoviesChecked ? filterShortMovies(props.moviesList) : props.moviesList;
-    setMovies(moviesList);
-  }, [shortMoviesChecked, props.moviesList])
+    const filteredMovies = shortMoviesChecked ? filterShortMovies(moviesList) : moviesList;
+    setMovies(filteredMovies);
+  }, [shortMoviesChecked, moviesList])
 
   useEffect(() => {
     const savedFilteredMovies = JSON.parse(localStorage.getItem('movieSearchResult')) ?? [];
-    props.setMoviesList(savedFilteredMovies);
+    setMoviesList(savedFilteredMovies);
 
     const shortMoviesCheckedSaved = JSON.parse(localStorage.getItem('shortMoviesCheckboxState'));
     setShortMoviesChecked(shortMoviesCheckedSaved !== null ? shortMoviesCheckedSaved : false);
 
     if (savedFilteredMovies.length === 0) {
       const notFoundMessage = localStorage.getItem('notFoundMessage');
-      props.setNotFoundMessage(notFoundMessage);
+      setNotFoundMessage(notFoundMessage);
     }
-  }, [props.loggedIn])
+  }, [loggedIn])
 
   function handleCheckbox() {
     localStorage.setItem('shortMoviesCheckboxState', !shortMoviesChecked);
@@ -37,29 +37,27 @@ function Movies(props) {
   return (
     <section className='movies'>
       <SearchForm
-        onSearch={props.onSearch}
+        onSearch={onSearch}
         shortMoviesChecked={shortMoviesChecked}
         initialQuery={initialMoviesSearcQuerySaved}
-        onCheckbox={handleCheckbox}
-      />
+        onCheckbox={handleCheckbox} />
 
-      {props.moviesIsLoading
+      {moviesIsLoading
         ? <Preloader />
-        : props.moviesList.length === 0
-          ? <p className='movies__not-found-message'>{props.notFoundMessage}</p>
+        : moviesList.length === 0
+          ? <p className='movies__not-found-message'>{notFoundMessage}</p>
           : <>
 
             <MoviesCardList
-              onMovieLike={props.onMovieLike}
+              onMovieLike={onMovieLike}
               moviesList={movies}
-              shownListSize={props.shownListSize}
-              onDelete={props.onDelete}
-              isLiked={props.isLiked}
-              savedMovieIdByMovieId={props.savedMovieIdByMovieId}
-            />
+              shownListSize={shownListSize}
+              onDelete={onDelete}
+              isLiked={isLiked}
+              savedMovieIdByMovieId={savedMovieIdByMovieId} />
 
-            {props.shownListSize < props.moviesList.length && props.moviesList.length > 0
-              ? <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={props.onLoadMore}>Ещё</button>
+            {shownListSize < moviesList.length && moviesList.length > 0
+              ? <button className='movies__more-button' type='button' aria-label='Загрузить еще' onClick={onLoadMore}>Ещё</button>
               : ''}
           </>
       }

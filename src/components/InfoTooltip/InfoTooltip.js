@@ -1,15 +1,15 @@
 import React from 'react';
 import './InfoTooltip.css';
 
-function InfoTooltip(props) {
+function InfoTooltip({ isOpen, InfoTooltipText, onClose }) {
   return (
-    <div className={`info-tooltip ${props.isOpen && 'info-tooltip_opened'}`}>
+    <div className={`info-tooltip ${isOpen && 'info-tooltip_opened'}`}>
       <div className='info-tooltip__container'>
         <h3 className='info-tooltip__text'>
-          {props.InfoTooltipText}
+          {InfoTooltipText}
         </h3>
       <button className='info-tooltip__close-button' type='button' aria-label='Закрыть'
-        onClick={props.onClose}>
+        onClick={onClose}>
       </button>
       </div>
   </div>
