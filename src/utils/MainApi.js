@@ -86,8 +86,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  // baseUrl: 'https://api.films.lizab.nomoredomains.club',
-  baseUrl: 'http://localhost:3001',
+  baseUrl: 'https://api.films.lizab.nomoredomains.club',
   headers: {
     'Content-Type': 'application/json'
   }

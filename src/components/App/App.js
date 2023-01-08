@@ -86,8 +86,8 @@ function App() {
   }, []);
 
   function openTooltip() {
-    setInfoTooltipOpen(true);
     setTimeout(() => { setInfoTooltipOpen(false) }, 5000)
+    setInfoTooltipOpen(true);
   }
 
   function closeTooltip() {
