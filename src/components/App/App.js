@@ -212,26 +212,40 @@ function App() {
       })
   }
 
+  function fetchMovies() {
+    if (localStorage.initialMoviesData) {
+      return new Promise((res, rej) => {
+        res(JSON.parse(localStorage.initialMoviesData));
+      });
+    }
+
+    const initMoviesPromise = moviesApi.getInitialMovies();
+    initMoviesPromise
+      .then(initialMoviesData => {
+        localStorage.setItem('initialMoviesData', JSON.stringify(initialMoviesData));
+      });
+    return initMoviesPromise;
+  }
+
   function handleMoviesSearch(searchQuery) {
     setMoviesIsLoading(true);
-    moviesApi.getInitialMovies()
-      .then((initialMoviesData) => {
-        const searchedMoviesData = filterMovies(initialMoviesData, searchQuery);
-        setMoviesList(searchedMoviesData);
-        localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
-        if (searchedMoviesData.length === 0) {
-          localStorage.setItem('notFoundMessage', NOT_FOUND_MESSAGE);
-          setNotFoundMessage(NOT_FOUND_MESSAGE);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setNotFoundMessage(SERVER_ERROR_MESSAGE)
-      })
-      .finally(() => {
-        localStorage.setItem('initialMovieSearchQuery', searchQuery);
-        setMoviesIsLoading(false);
-      })
+    fetchMovies().then((initialMoviesData) => {
+      const searchedMoviesData = filterMovies(initialMoviesData, searchQuery);
+      setMoviesList(searchedMoviesData);
+      localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
+      if (searchedMoviesData.length === 0) {
+        localStorage.setItem('notFoundMessage', NOT_FOUND_MESSAGE);
+        setNotFoundMessage(NOT_FOUND_MESSAGE);
+      }
+    }
+    ).catch((err) => {
+      console.log(err);
+      setNotFoundMessage(SERVER_ERROR_MESSAGE)
+
+    }).finally(() => {
+      localStorage.setItem('initialMovieSearchQuery', searchQuery);
+      setMoviesIsLoading(false);
+    });
   }
 
   function isLiked(movie) {
