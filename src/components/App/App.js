@@ -26,7 +26,15 @@ import {
   TABLET_WINDOW_SIZE,
   DESKTOP_LOAD_MORE_CARDS,
   TABLET_LOAD_MORE_CARDS,
-  MOBILE_LOAD_MORE_CARDS
+  MOBILE_LOAD_MORE_CARDS,
+  CONFLICT_ERROR_MESSAGE,
+  BAD_REQUEST_ERROR_MESSAGE,
+  INTERNAL_SERVER_ERROR_MESSAGE,
+  WRONG_AUTH_DATA_ERROR_MESSAGE,
+  SUCCESS_REGISTER_MESSAGE,
+  SUCCESS_DATA_CHANGE_MESSAGE,
+  NOT_FOUND_MESSAGE,
+  SERVER_ERROR_MESSAGE
 } from '../../utils/constants';
 
 function App() {
@@ -122,7 +130,7 @@ function App() {
         if (res) {
           setIsSignup(true);
           openTooltip();
-          setInfoTooltipText('Вы успешно зарегистрировались');
+          setInfoTooltipText(SUCCESS_REGISTER_MESSAGE);
           handleLogin({
             email: email,
             password: password
@@ -134,15 +142,15 @@ function App() {
         console.log(err);
         if (err === 409) {
           openTooltip();
-          setInfoTooltipText('Пользователь с таким email уже существует');
+          setInfoTooltipText(CONFLICT_ERROR_MESSAGE);
         }
         if (err === 400) {
           openTooltip();
-          setInfoTooltipText('Проверьте корректность введенных данных');
+          setInfoTooltipText(BAD_REQUEST_ERROR_MESSAGE);
         }
         if (err === 500) {
           openTooltip();
-          setInfoTooltipText('Что-то пошло не так, попробуйте еще раз');
+          setInfoTooltipText(INTERNAL_SERVER_ERROR_MESSAGE);
         }
       })
   }
@@ -159,11 +167,11 @@ function App() {
         console.log(err);
         if (err === 401) {
           openTooltip();
-          setInfoTooltipText('Вы ввели неправильный email или пароль');
+          setInfoTooltipText(WRONG_AUTH_DATA_ERROR_MESSAGE);
         }
         if (err === 500) {
           openTooltip();
-          setInfoTooltipText('Что-то пошло не так, попробуйте еще раз');
+          setInfoTooltipText(INTERNAL_SERVER_ERROR_MESSAGE);
         }
       })
   }
@@ -185,21 +193,21 @@ function App() {
       .then((userInfo) => {
         setCurrentUser(userInfo.data);
         openTooltip();
-        setInfoTooltipText('Вы успешно изменили данные');
+        setInfoTooltipText(SUCCESS_DATA_CHANGE_MESSAGE);
       })
       .catch((err) => {
         console.log(err);
         if (err === 409) {
           openTooltip();
-          setInfoTooltipText('Пользователь с таким email уже существует');
+          setInfoTooltipText(CONFLICT_ERROR_MESSAGE);
         }
         if (err === 400) {
           openTooltip();
-          setInfoTooltipText('Проверьте корректность введенных данных');
+          setInfoTooltipText(BAD_REQUEST_ERROR_MESSAGE);
         }
         if (err === 500) {
           openTooltip();
-          setInfoTooltipText('Что-то пошло не так, попробуйте еще раз');
+          setInfoTooltipText(INTERNAL_SERVER_ERROR_MESSAGE);
         }
       })
   }
@@ -212,14 +220,13 @@ function App() {
         setMoviesList(searchedMoviesData);
         localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
         if (searchedMoviesData.length === 0) {
-          const message = 'Ничего не найдено';
-          localStorage.setItem('notFoundMessage', message);
-          setNotFoundMessage(message);
+          localStorage.setItem('notFoundMessage', NOT_FOUND_MESSAGE);
+          setNotFoundMessage(NOT_FOUND_MESSAGE);
         }
       })
       .catch((err) => {
         console.log(err);
-        setNotFoundMessage('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
+        setNotFoundMessage(SERVER_ERROR_MESSAGE)
       })
       .finally(() => {
         localStorage.setItem('initialMovieSearchQuery', searchQuery);
