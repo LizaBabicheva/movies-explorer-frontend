@@ -189,6 +189,9 @@ function App() {
   }
 
   function handleProfileChange(userData) {
+    if (userData.name === currentUser.name && userData.email === currentUser.email) {
+      return;
+    }
     mainApi.updateUserInfo(userData)
       .then((userInfo) => {
         setCurrentUser(userInfo.data);
