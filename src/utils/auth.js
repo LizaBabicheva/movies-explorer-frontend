@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://api.films.lizab.nomoredomains.club';
+// export const BASE_URL = 'https://api.films.lizab.nomoredomains.club';
+export const BASE_URL = 'http://localhost:3001';
 
 export function getResponseData(res) {
   if (!res.ok) {

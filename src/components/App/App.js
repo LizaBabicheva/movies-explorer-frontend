@@ -323,15 +323,17 @@ function App() {
               </ProtectedRoute>
 
               <Route path='/signin'>
-                <Login
-                  onLogin={handleLogin}
-                />
+                {loggedIn
+                  ? <Redirect to='/' />
+                  : <Login
+                    onLogin={handleLogin} />}
               </Route>
 
               <Route path='/signup'>
-                <Register
-                  onSignup={handleSignup}
-                />
+                {loggedIn
+                  ? <Redirect to='/' />
+                  : <Register
+                    onSignup={handleSignup} />}
               </Route>
 
               <Route path='/404'>
