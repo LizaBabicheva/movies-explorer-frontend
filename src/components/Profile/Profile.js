@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import './Profile.css';
 import useForm from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -6,6 +6,7 @@ import { nameValidationSchema, emailValidationSchema } from '../../utils/utils';
 
 function Profile({ onSignout, onProfileChange }) {
   const currentUser = useContext(CurrentUserContext);
+  const [isSameInputValue, setIsSameInputValue] = useState(false);
 
   useEffect(() => {
     if (currentUser.name) {
@@ -30,11 +31,16 @@ function Profile({ onSignout, onProfileChange }) {
     });
   }
 
-  const { state, handleOnChange, handleOnSubmit, disable, processChanges } = useForm(
+  const { state, handleOnChange, handleOnSubmit, disable, setDisable, processChanges } = useForm(
     stateSchema,
     validationStateSchema,
     onSubmitForm
   );
+
+  useEffect(() => {
+    const inputSameValue = currentUser.name === state.name.value && currentUser.email === state.email.value;
+    setIsSameInputValue(inputSameValue);
+  }, [state]);
 
   return (
     <section className='profile'>
@@ -72,7 +78,7 @@ function Profile({ onSignout, onProfileChange }) {
 
           <div className='profile__button-wrap'>
             <button
-              className={`profile__button profile__button_type_edit ${disable && 'profile__button_disabled'}`}
+              className={`profile__button profile__button_type_edit ${(isSameInputValue || disable) ? 'profile__button_disabled' : ''}`}
               type='submit'
               disabled={disable}>
               Редактировать</button>
