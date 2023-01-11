@@ -14,14 +14,8 @@ function SavedMovies({ moviesList, loggedIn, onSearch, onDelete, shownListSize }
     setMovies(filteredMovies);
   }, [shortMoviesChecked, moviesList])
 
-  useEffect(() => {
-    const shortMoviesCheckedSaved = JSON.parse(localStorage.getItem('savedShortMoviesCheckboxState'));
-    setShortMoviesChecked(shortMoviesCheckedSaved !== null ? shortMoviesCheckedSaved : false);
-  }, [loggedIn])
-
   function handleCheckbox() {
     const newValue = !shortMoviesChecked;
-    localStorage.setItem('savedShortMoviesCheckboxState', newValue);
     setShortMoviesChecked(newValue);
     setShortMoviesChecked(!shortMoviesChecked);
   }
