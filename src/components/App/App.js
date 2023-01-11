@@ -17,9 +17,17 @@ import * as auth from '../../utils/auth.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Preloader from '../Preloader/Preloader';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
-
 import { filterMovies } from '../../utils/utils';
-
+import {
+  DESKTOP_INITIAL_CARDS_NUMBER,
+  TABLET_INITIAL_CARDS_NUMBER,
+  MOBILE_INITIAL_CARDS_NUMBER,
+  MOBILE_WINDOW_SIZE,
+  TABLET_WINDOW_SIZE,
+  DESKTOP_LOAD_MORE_CARDS,
+  TABLET_LOAD_MORE_CARDS,
+  MOBILE_LOAD_MORE_CARDS
+} from '../../utils/constants';
 
 function App() {
   const headerPathArray = ['/', '/movies', '/saved-movies', '/profile'];
@@ -253,11 +261,11 @@ function App() {
   }
 
   function getInitialSize() {
-    return window.screen.width < 480 ? 5 : (window.screen.width < 768 ? 8 : 12)
+    return window.screen.width < MOBILE_WINDOW_SIZE ? MOBILE_INITIAL_CARDS_NUMBER : (window.screen.width < TABLET_WINDOW_SIZE ? TABLET_INITIAL_CARDS_NUMBER : DESKTOP_INITIAL_CARDS_NUMBER)
   }
 
   function getLoadMoreSize() {
-    return window.screen.width < 480 ? 2 : (window.screen.width < 768 ? 2 : 3)
+    return window.screen.width < MOBILE_WINDOW_SIZE ? MOBILE_LOAD_MORE_CARDS : (window.screen.width < TABLET_WINDOW_SIZE ? TABLET_LOAD_MORE_CARDS : DESKTOP_LOAD_MORE_CARDS)
   }
 
   function handleResize() {

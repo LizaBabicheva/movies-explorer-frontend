@@ -1,7 +1,9 @@
+import { SHORT_MOVIE_DURATION_IN_MIN } from './constants';
+
 const imageUrl = 'https://api.nomoreparties.co/';
 
 export default function filterShortMovies(movies) {
-  return movies.filter((movie) => movie.duration <= 40);
+  return movies.filter((movie) => movie.duration <= SHORT_MOVIE_DURATION_IN_MIN);
 }
 
 function transformDuration(duration) {
