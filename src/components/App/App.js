@@ -88,7 +88,6 @@ function App() {
         console.log(err);
       })
   }, [loggedIn])
-  // }, [loggedIn, savedMoviesList])
 
   useEffect(() => {
     handleResize();
@@ -258,14 +257,6 @@ function App() {
     );
   }
 
-  function handleSavedMoviesSearch(searchQuery) {
-    setMoviesIsLoading(true);
-    debugger;
-    const searchedSavedMoviesData = filterMovies(savedMoviesList, searchQuery);
-    setSavedMoviesList(searchedSavedMoviesData);
-    setMoviesIsLoading(false);
-  }
-
   function handleMovieSave(movie) {
     mainApi.addNewMovie(movie)
       .then((newMovie) => {
@@ -347,7 +338,9 @@ function App() {
                 moviesList={savedMoviesList}
                 shownListSize={shownListSize}
                 onDelete={handleMovieDelete}
-                onSearch={handleSavedMoviesSearch}>
+                setSavedMoviesList={setSavedMoviesList}
+                setMoviesIsLoading={setMoviesIsLoading}
+              >
               </ProtectedRoute>
 
               <ProtectedRoute

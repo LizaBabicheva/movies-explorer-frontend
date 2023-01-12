@@ -6,7 +6,7 @@ function MoviesCardList({ moviesList, shownListSize, onMovieLike, savedMovieIdBy
   return (
       <ul className='movies-list'>
         {moviesList.map((movie, idx) => (
-          idx < shownListSize
+          idx < shownListSize || !shownListSize
             ? <MoviesCard
               onMovieLike={onMovieLike}
               movie={movie}

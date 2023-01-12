@@ -59,7 +59,6 @@ const passwordValidationSchema = {
 };
 
 function filterMovies(movies, searchQuery) {
-  debugger;
   return movies.filter(movie => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()));
 }
 

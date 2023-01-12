@@ -78,9 +78,7 @@ function Profile({ onSignout, onProfileChange }) {
 
           <div className='profile__button-wrap'>
             <button
-              // className={`profile__button profile__button_type_edit ${(isSameInputValue || disable) ? 'profile__button_disabled' : ''}`}
-              className={`profile__button profile__button_type_edit`}
-
+              className={`profile__button profile__button_type_edit ${(isSameInputValue || disable) ? 'profile__button_disabled' : ''}`}
               type='submit'
               disabled={disable}>
               Редактировать</button>
