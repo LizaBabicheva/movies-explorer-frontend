@@ -33,7 +33,7 @@ import {
   WRONG_AUTH_DATA_ERROR_MESSAGE,
   SUCCESS_REGISTER_MESSAGE,
   SUCCESS_DATA_CHANGE_MESSAGE,
-  NOT_FOUND_MESSAGE,
+  NOTHING_FOUND_MESSAGE,
   SERVER_ERROR_MESSAGE
 } from '../../utils/constants';
 
@@ -237,8 +237,8 @@ function App() {
       setMoviesList(searchedMoviesData);
       localStorage.setItem('movieSearchResult', JSON.stringify(searchedMoviesData));
       if (searchedMoviesData.length === 0) {
-        localStorage.setItem('notFoundMessage', NOT_FOUND_MESSAGE);
-        setNotFoundMessage(NOT_FOUND_MESSAGE);
+        localStorage.setItem('notFoundMessage', NOTHING_FOUND_MESSAGE);
+        setNotFoundMessage(NOTHING_FOUND_MESSAGE);
       }
     }
     ).catch((err) => {

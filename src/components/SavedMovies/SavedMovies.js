@@ -4,9 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import filterShortMovies from '../../utils/utils';
 import { filterMovies } from '../../utils/utils';
-//
-import { NOT_FOUND_MESSAGE } from '../../utils/constants';
-//
+import { NOTHING_FOUND_MESSAGE } from '../../utils/constants';
 
 function SavedMovies({ moviesList, loggedIn, onDelete, setMoviesIsLoading }) {
   const [movies, setMovies] = useState([]);
@@ -24,7 +22,7 @@ function SavedMovies({ moviesList, loggedIn, onDelete, setMoviesIsLoading }) {
     const searchedSavedMoviesData = filterMovies(moviesList, searchQuery);
     setMovies(searchedSavedMoviesData);
     if (searchedSavedMoviesData.length === 0) {
-      setNotFoundMessage(NOT_FOUND_MESSAGE);
+      setNotFoundMessage(NOTHING_FOUND_MESSAGE);
     }
     setMoviesIsLoading(false);
   }
