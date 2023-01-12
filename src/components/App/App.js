@@ -80,14 +80,15 @@ function App() {
   useEffect(() => {
     mainApi.getSavedMovies()
       .then((savedMoviesData) => {
-        setSavedMoviesList(savedMoviesData.movies);
         setSavedMovieIdByMovieId(savedMoviesData.movies.reduce(
           (result, movie) => Object.assign(result, { [movie.movieId]: movie._id }), {}));
+        setSavedMoviesList(savedMoviesData.movies);
       })
       .catch((err) => {
         console.log(err);
       })
   }, [loggedIn])
+  // }, [loggedIn, savedMoviesList])
 
   useEffect(() => {
     handleResize();
@@ -259,14 +260,17 @@ function App() {
 
   function handleSavedMoviesSearch(searchQuery) {
     setMoviesIsLoading(true);
-    const searchedMoviesData = filterMovies(savedMoviesList, searchQuery);
-    setSavedMoviesList(searchedMoviesData);
+    debugger;
+    const searchedSavedMoviesData = filterMovies(savedMoviesList, searchQuery);
+    setSavedMoviesList(searchedSavedMoviesData);
     setMoviesIsLoading(false);
   }
 
   function handleMovieSave(movie) {
     mainApi.addNewMovie(movie)
       .then((newMovie) => {
+        const updatedMoviesById = Object.assign(savedMovieIdByMovieId, { [newMovie.movie.movieId]: newMovie.movie._id }, {});
+        setSavedMovieIdByMovieId(updatedMoviesById);
         setSavedMoviesList([newMovie.movie, ...savedMoviesList]);
       })
       .catch((err) => {

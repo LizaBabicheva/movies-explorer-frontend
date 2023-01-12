@@ -65,7 +65,6 @@ class MainApi {
         nameEN: data.nameEN,
         thumbnail: data.thumbnail,
         movieId: data.movieId,
-
       })
     })
       .then((res) => {

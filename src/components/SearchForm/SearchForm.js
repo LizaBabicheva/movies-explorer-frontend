@@ -10,6 +10,7 @@ function SearchForm({ onSearch, shortMoviesChecked, onCheckbox, initialQuery }) 
   };
 
   function onSubmitForm(state) {
+    debugger;
     onSearch(state.search.value);
   }
 
